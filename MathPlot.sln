@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31727.386
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathPlot.Api", "MathPlot.Api\MathPlot.Api.csproj", "{9BDA443B-3129-4A66-98CB-949681051A95}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "MathPlot.UI", "MathPlot.UI\MathPlot.UI.njsproj", "{D491CB65-0FCB-4C5B-91D3-10D8DE584191}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9BDA443B-3129-4A66-98CB-949681051A95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BDA443B-3129-4A66-98CB-949681051A95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BDA443B-3129-4A66-98CB-949681051A95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BDA443B-3129-4A66-98CB-949681051A95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D491CB65-0FCB-4C5B-91D3-10D8DE584191}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D491CB65-0FCB-4C5B-91D3-10D8DE584191}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D491CB65-0FCB-4C5B-91D3-10D8DE584191}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D491CB65-0FCB-4C5B-91D3-10D8DE584191}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C68480D2-0D50-4BEA-955E-A63E2EE471AF}
+	EndGlobalSection
+EndGlobal
