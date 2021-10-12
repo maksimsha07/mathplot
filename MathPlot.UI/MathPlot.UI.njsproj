@@ -45,6 +45,9 @@
     <Folder Include="src\" />
     <Folder Include="src\assets\" />
     <Folder Include="src\components\" />
+    <Folder Include="src\NewFolder1\" />
+    <Folder Include="src\NewFolder2\" />
+    <Folder Include="src\View\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\main.ts" />

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MathPlot.DB.Model
+namespace MathPlot.Api.Model
 {
-    class User
+   public class User
     {
         [Required]
         public Guid Id { get; set; }

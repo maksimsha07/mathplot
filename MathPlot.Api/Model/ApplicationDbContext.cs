@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace MathPlot.Api.Model
 {
-    public class ApplicationDbContext
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+        public DbSet<User> Users { get; set; }
     }
 }
