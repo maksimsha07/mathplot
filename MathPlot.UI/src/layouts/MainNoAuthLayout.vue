@@ -1,108 +1,119 @@
 <template>
-<div class="app-mainWithoutLogin-layout">
+<div>
     <header class="header">
-        <nav class="navbar navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="">
                     <img src="../assets/function.png" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
                     MathPlot
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse flex-grow-1 justify-content-center" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto">
+                <li class="b-nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>   
+                </li>
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dropdown
                 </a>
-                <h2>Main</h2>
-                <div class="d-flex">
-                    <button type="button" id="buttonSing" class="btn btn-primary mr-md-2" data-bs-toggle="modal" data-bs-target="#registrationsModal">Sing up</button>
-                    <button type="button" class="btn btn-primary mr-md-2" data-bs-toggle="modal" data-bs-target="#authModal">Sing in</button>
-                </div>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <b-button @click="$bvModal.show('registrationsModal')" type="button" id="buttonSing" class="btn btn-outline-primary mr-md-2">Sing up</b-button>
+                <button type="button" class="btn btn-outline-primary mr-md-2" data-bs-toggle="modal" data-bs-target="#authModal" style="margin-left: 5px">Sing in</button>
+            </form>
             </div>
+        </div>
         </nav>
     </header>
 
     <!-- Modal Sing UP -->
-    <div class="modal fade" id="registrationsModal" tabindex="-1" role="dialog" aria-bs-labelledby="registrationsModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="registrationsModalLabel">Sing Up</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-bs-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="container overflow-hidden">
-
-
-                        <form id="registrationForm">
-
-                            <div class="form-group row ">
-                                <div class="form-group col-md-6">
-                                    <label for="registrationInputFirstName">FirstName</label>
-                                    <input type="text" class="form-control" id="registrationInputFirstName" placeholder="Enter FirstName">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="registrationInputLastName">LastName</label>
-                                    <input type="text" class="form-control" id="registrationInputLastName" placeholder="Enter LastName">
-                                </div>
-                            </div>
-
-                            <div class="form-group" id="modalrowsize">
-                                <label for="registrationInputLogin">Login</label>
-                                <input type="Login" class="form-control" id="registrationInputLogin" placeholder="Enter Login">
-                            </div>
-
-                            <div class="form-group row" id="modalrowsize">
-                                <div class="form-group col-md-6">
-                                    <label for="registrationInputBirthday">Birthday</label>
-                                    <input type="date" class="form-control" id="registrationInputBirthday">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <legend class="col-form-label col-sm-2 pt-0">Genres</legend>
-                                    <div class="form-group row">
-                                        <div class="form-check col-md-6 ">
-                                            <input class="form-check-input" type="radio" name="gridRadios" id="registrationRadioMale" value="option1" checked>
-                                            <label class="form-check-label" for="registrationRadioMale">
-                                                Male
-                                            </label>
-                                        </div>
-                                        <div class="form-check col-md-4">
-                                            <input class="form-check-input" type="radio" name="gridRadios" id="registrationRadioFemale" value="option1" checked>
-                                            <label class="form-check-label" for="">
-                                                Female
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group row" id="modalrowsize">
-                                <div class="form-group col-md-6">
-                                    <label for="registrationInputEmail">Email Address</label>
-                                    <input type="Email" class="form-control" id="registrationInputEmail" placeholder="Enter email">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="registrationInputTelephone">Phone Number</label>
-                                    <input type="Phone" class="form-control" id="registrationInputTelephone">
-                                </div>
-                            </div>
-
-                            <div class="form-group row" id="modalrowsize">
-                                <div class="form-group col-md-6">
-                                    <label for="registrationInputPassword">Password</label>
-                                    <input type="Password" class="form-control" id="registrationInputPassword" placeholder="Enter Password">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="registrationInputPasswordReturn">Password</label>
-                                    <input type="Password" class="form-control" id="registrationInputPasswordReturn" placeholder="Enter Password">
-                                </div>
-                            </div>
-                        </form>
+    <b-modal
+        id ="registrationsModal"
+        ref = "modal"
+        title="Sing Up"
+        >
+        <div class="container overflow-hidden">
+            <form id="registrationForm">
+                <div class="form-group row ">
+                    <div class="form-group col-md-6">
+                        <label for="registrationInputFirstName">FirstName</label>
+                        <input type="text" class="form-control" id="registrationInputFirstName" placeholder="Enter FirstName">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="registrationInputLastName">LastName</label>
+                        <input type="text" class="form-control" id="registrationInputLastName" placeholder="Enter LastName">
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" form="registrationForm" class="btn btn-primary">Submit</button>
+                <div class="form-group" id="modalrowsize">
+                    <label for="registrationInputLogin">Login</label>
+                    <input type="Login" class="form-control" id="registrationInputLogin" placeholder="Enter Login">
                 </div>
-
-            </div>
+                <div class="form-group row" id="modalrowsize">
+                    <div class="form-group col-md-6">
+                        <label for="registrationInputBirthday">Birthday</label>
+                        <input type="date" class="form-control" id="registrationInputBirthday">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <legend class="col-form-label col-sm-2 pt-0">Genres</legend>
+                        <div class="form-group row">
+                            <div class="form-check col-md-6 ">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="registrationRadioMale" value="option1" checked>
+                                <label class="form-check-label" for="registrationRadioMale">
+                                    Male
+                                </label>
+                            </div>
+                            <div class="form-check col-md-4">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="registrationRadioFemale" value="option1" checked>
+                                <label class="form-check-label" for="">
+                                    Female
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row" id="modalrowsize">
+                    <div class="form-group col-md-6">
+                        <label for="registrationInputEmail">Email Address</label>
+                        <input type="Email" class="form-control" id="registrationInputEmail" placeholder="Enter email">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="registrationInputTelephone">Phone Number</label>
+                        <input type="Phone" class="form-control" id="registrationInputTelephone">
+                    </div>
+                </div>
+                <div class="form-group row" id="modalrowsize">
+                    <div class="form-group col-md-6">
+                        <label for="registrationInputPassword">Password</label>
+                        <input type="Password" class="form-control" id="registrationInputPassword" placeholder="Enter Password">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="registrationInputPasswordReturn">Password</label>
+                        <input type="Password" class="form-control" id="registrationInputPasswordReturn" placeholder="Enter Password">
+                    </div>
+                </div>
+            </form>
         </div>
-    </div>
+            <div class="modal-footer">
+                <button @click='registerClick()' type="submit" form="registrationForm" class="btn btn-primary">Submit</button>
+            </div>
+    </b-modal>
+ 
     <!--Modal Sing Up-->
     <!-- Modal Sing IN -->
     <div class="modal fade" id="authModal" tabindex="-1" role="dialog" aria-bs-labelledby="authModalLabel" aria-hidden="true">
@@ -140,10 +151,60 @@
 
 
     <!--Footer -->
-    <footer class="bg-light text-center text-lg-start">
+    <footer class="bg-light text-center text-lg-start fixed-bottom">
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
             � 2020 Copyright:
         </div>
     </footer>
 </div>
 </template>
+
+
+<script>
+import axios from 'axios'
+import { uuid } from 'vue-uuid';
+
+export default{
+    data(){
+        return{
+            user: [],
+            Id: uuid.v1(),
+            FirstName : "",
+            LastName: "",
+            Login: "",
+            Birthday: null,
+            Genre: null,
+            Email: "",
+            Phone: null,
+            Password: ""
+        }
+    },
+    methods:
+    {
+        refreshData(){
+            axios.get("http://localhost:56063/api/" + "user")
+            .then((response)=>{
+                this.user = response.data;
+            });
+        },
+        registerClick(){
+            axios.post("http://localhost:56063/api/"  + "user",
+            {
+                FirstName:this.FirstName,
+                LastName: this.LastName,
+                Login: this.Login,
+                Birthday: this.Birthday,
+                Genre: this.Genre,
+                Email: this.Email,
+                Phone: this.Phone,
+                Password: this.Password
+            })
+            .then((response)=>{
+                this.refreshData();
+                alert(response.data);
+            });
+        }
+    }
+}
+</script>
+

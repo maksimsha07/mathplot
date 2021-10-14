@@ -26,7 +26,11 @@ namespace MathPlot.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // получаем строку подключения из файла конфигурации
+            // получаем строку подключения из файла конфигурацsии
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin",option =>option.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            });
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(connection));
@@ -40,6 +44,7 @@ namespace MathPlot.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
