@@ -10,5 +10,23 @@ namespace MathPlot.Api.Model
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         public DbSet<User> Users { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<User>().HasData(new User
+            {
+                Id = Guid.NewGuid(),
+                FirstName = "Максим",
+                LastName = "Чешихин",
+                Login = "Maksim",
+                Genre = true,
+                Email = "deevzmak1234@mail.ru",
+                Phone = 89094352590,
+                Password = "qwertyuiop123"
+            }
+                ); ;
+
+        }
     }
 }

@@ -9,6 +9,7 @@
 <script>
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'vue-datetime/dist/vue-datetime.css'
 import MainNoAuthLayout from  '@/layouts/MainNoAuthLayout'
 export default {
   computed:{

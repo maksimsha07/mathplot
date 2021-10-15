@@ -17,6 +17,7 @@ namespace MathPlot.Api.Controllers
         public UserController(ApplicationDbContext context)
         {
             db = context;
+
         }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> Get()

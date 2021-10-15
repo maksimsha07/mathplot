@@ -49,37 +49,37 @@
         title="Sing Up"
         >
         <div class="container overflow-hidden">
-            <form id="registrationForm">
+            <form id="registrationForm" @submit.prevent = "registerClick">
                 <div class="form-group row ">
                     <div class="form-group col-md-6">
                         <label for="registrationInputFirstName">FirstName</label>
-                        <input type="text" class="form-control" id="registrationInputFirstName" placeholder="Enter FirstName">
+                        <input type="text" class="form-control" v-model="FirstName" id="registrationInputFirstName" placeholder="Enter FirstName">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="registrationInputLastName">LastName</label>
-                        <input type="text" class="form-control" id="registrationInputLastName" placeholder="Enter LastName">
+                        <input type="text" class="form-control" v-model="LastName" id="registrationInputLastName" placeholder="Enter LastName">
                     </div>
                 </div>
                 <div class="form-group" id="modalrowsize">
                     <label for="registrationInputLogin">Login</label>
-                    <input type="Login" class="form-control" id="registrationInputLogin" placeholder="Enter Login">
+                    <input type="Login" class="form-control" v-model="Login" id="registrationInputLogin" placeholder="Enter Login">
                 </div>
                 <div class="form-group row" id="modalrowsize">
                     <div class="form-group col-md-6">
                         <label for="registrationInputBirthday">Birthday</label>
-                        <input type="date" class="form-control" id="registrationInputBirthday">
+                        <datetime v-model="Birthday" id ="registrationInputBirthday"></datetime>
                     </div>
                     <div class="form-group col-md-6">
                         <legend class="col-form-label col-sm-2 pt-0">Genres</legend>
                         <div class="form-group row">
                             <div class="form-check col-md-6 ">
-                                <input class="form-check-input" type="radio" name="gridRadios" id="registrationRadioMale" value="option1" checked>
+                                <input class="form-check-input" type="radio" name="gridRadios" id="registrationRadioMale" value=true  v-model="Genre" checked>
                                 <label class="form-check-label" for="registrationRadioMale">
                                     Male
                                 </label>
                             </div>
                             <div class="form-check col-md-4">
-                                <input class="form-check-input" type="radio" name="gridRadios" id="registrationRadioFemale" value="option1" checked>
+                                <input class="form-check-input" type="radio" name="gridRadios" id="registrationRadioFemale" value=false  v-model="Genre"  checked>
                                 <label class="form-check-label" for="">
                                     Female
                                 </label>
@@ -90,17 +90,17 @@
                 <div class="form-group row" id="modalrowsize">
                     <div class="form-group col-md-6">
                         <label for="registrationInputEmail">Email Address</label>
-                        <input type="Email" class="form-control" id="registrationInputEmail" placeholder="Enter email">
+                        <input type="Email" class="form-control" id="registrationInputEmail" v-model="Email"  placeholder="Enter email">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="registrationInputTelephone">Phone Number</label>
-                        <input type="Phone" class="form-control" id="registrationInputTelephone">
+                        <input type="Phone" class="form-control" id="registrationInputTelephone"  v-model="Phone" >
                     </div>
                 </div>
                 <div class="form-group row" id="modalrowsize">
                     <div class="form-group col-md-6">
                         <label for="registrationInputPassword">Password</label>
-                        <input type="Password" class="form-control" id="registrationInputPassword" placeholder="Enter Password">
+                        <input type="Password" class="form-control" id="registrationInputPassword" placeholder="Enter Password"  v-model="Password" >
                     </div>
                     <div class="form-group col-md-6">
                         <label for="registrationInputPasswordReturn">Password</label>
@@ -110,7 +110,7 @@
             </form>
         </div>
             <div class="modal-footer">
-                <button @click='registerClick()' type="submit" form="registrationForm" class="btn btn-primary">Submit</button>
+                <button type="submit" form="registrationForm" class="btn btn-primary">Submit</button>
             </div>
     </b-modal>
  
@@ -161,19 +161,17 @@
 
 
 <script>
-import axios from 'axios'
 import { uuid } from 'vue-uuid';
 
 export default{
     data(){
         return{
-            user: [],
             Id: uuid.v1(),
             FirstName : "",
             LastName: "",
             Login: "",
             Birthday: null,
-            Genre: null,
+            Genre: true,
             Email: "",
             Phone: null,
             Password: ""
@@ -181,28 +179,21 @@ export default{
     },
     methods:
     {
-        refreshData(){
-            axios.get("http://localhost:56063/api/" + "user")
-            .then((response)=>{
-                this.user = response.data;
-            });
-        },
-        registerClick(){
-            axios.post("http://localhost:56063/api/"  + "user",
+        async GetUsers(){
+            const response = await fetch("http://localhost:56063/api/user",
             {
-                FirstName:this.FirstName,
-                LastName: this.LastName,
-                Login: this.Login,
-                Birthday: this.Birthday,
-                Genre: this.Genre,
-                Email: this.Email,
-                Phone: this.Phone,
-                Password: this.Password
-            })
-            .then((response)=>{
-                this.refreshData();
-                alert(response.data);
+                method: "GET",
+                headers: {"Accept": "application/json"}
             });
+            if(response.status >=200 && response.status <= 299){
+                console.log(response.json());
+            }
+            else{
+                console.log(response.status, response.statusText);
+            }
+        },
+        async registerClick(){
+            console.log(this.data);
         }
     }
 }

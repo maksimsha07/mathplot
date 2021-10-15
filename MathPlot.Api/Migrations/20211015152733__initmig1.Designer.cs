@@ -3,15 +3,17 @@ using System;
 using MathPlot.Api.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace MathPlot.Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211015152733__initmig1")]
+    partial class _initmig1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,6 +26,9 @@ namespace MathPlot.Api.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Email")
                         .HasColumnType("text");
@@ -57,7 +62,8 @@ namespace MathPlot.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a2c4554a-cc1e-4e60-87d2-5bba3741ece7"),
+                            Id = new Guid("d9fb4a4b-0f1e-4939-8cb5-a95b8cc63cfc"),
+                            Birthday = new DateTime(2001, 10, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "deevzmak1234@mail.ru",
                             FirstName = "Максим",
                             Genre = true,
