@@ -49,6 +49,7 @@
         title="Sing Up"
         >
         <div class="container overflow-hidden">
+            <div id="errors" class="alert alert-danger" style="display:none;"></div>
             <form id="registrationForm" @submit.prevent = "registerClick">
                 <div class="form-group row ">
                     <div class="form-group col-md-6">
@@ -66,20 +67,16 @@
                 </div>
                 <div class="form-group row" id="modalrowsize">
                     <div class="form-group col-md-6">
-                        <label for="registrationInputBirthday">Birthday</label>
-                        <datetime v-model="Birthday" id ="registrationInputBirthday"></datetime>
-                    </div>
-                    <div class="form-group col-md-6">
                         <legend class="col-form-label col-sm-2 pt-0">Genres</legend>
                         <div class="form-group row">
                             <div class="form-check col-md-6 ">
-                                <input class="form-check-input" type="radio" name="gridRadios" id="registrationRadioMale" value=true  v-model="Genre" checked>
+                                <input class="form-check-input" type="radio" name="IsMale" id="registrationRadioMale" value="true"  v-model="Genre" checked>
                                 <label class="form-check-label" for="registrationRadioMale">
                                     Male
                                 </label>
                             </div>
                             <div class="form-check col-md-4">
-                                <input class="form-check-input" type="radio" name="gridRadios" id="registrationRadioFemale" value=false  v-model="Genre"  checked>
+                                <input class="form-check-input" type="radio" name="IsMale" id="registrationRadioFemale" value="false"  v-model="Genre"  checked>
                                 <label class="form-check-label" for="">
                                     Female
                                 </label>
@@ -170,8 +167,7 @@ export default{
             FirstName : "",
             LastName: "",
             Login: "",
-            Birthday: null,
-            Genre: true,
+            Genre: null,
             Email: "",
             Phone: null,
             Password: ""
@@ -193,7 +189,70 @@ export default{
             }
         },
         async registerClick(){
-            console.log(this.data);
+           const response = await fetch("http://localhost:56063/api/user",
+           {
+               method: "POST",
+               headers: {"Accept": "application/json", "Content-Type": "application/json"},
+               body: JSON.stringify({
+                    Id :this.Id,
+                    FirstName : this.FirstName,
+                    LastName: this.LastName,
+                    Login: this.Login,
+                    Genre: Boolean(this.Genre),
+                    Email: this.Email,
+                    Phone: Number(this.Phone),
+                    Password: this.Password
+               })
+           });
+           if(response.ok === true){
+               console.log(response.json());
+           }
+           else{
+              const errorData = await response.json();             
+              console.log("errors",errorData);
+              this.clearBox("errors");
+              if(errorData.errors){
+                  if(errorData.errors["Login"]){
+                      this.addError(errorData.errors["Login"]);
+                  }
+                   if(errorData.errors["FirstName"]){
+                      this.addError(errorData.errors["FirstName"]);
+                  }
+                   if(errorData.errors["LastName"]){
+                      this.addError(errorData.errors["LastName"]);
+                  }
+                 if(errorData.errors["Password"]){
+                        this.addError(errorData.errors["Password"]);
+                   }                  
+              }
+              if(errorData["Login"]){
+                 this.addError(errorData["Login"]);
+              }
+              if(errorData["FirstName"]){
+                 this.addError(errorData["FirstName"]);
+              }
+              if(errorData["LastName"]){
+                 this.addError(errorData["LastName"]);
+              }
+              if(errorData["Password"]){
+                 this.addError(errorData["Password"]);
+              }
+              document.getElementById("errors").style.display = "block";
+           }
+        },
+        addError(errors) {
+            errors.forEach(error => {
+                const p = document.createElement("p");
+                p.append(error);
+                document.getElementById("errors").append(p);
+            });
+        },
+        clearBox(elementID)
+        {
+            var div = document.getElementById(elementID);
+            while(div.firstChild){
+                div.removeChild(div.firstChild);
+             }
         }
     }
 }

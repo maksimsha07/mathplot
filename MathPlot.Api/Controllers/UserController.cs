@@ -24,14 +24,32 @@ namespace MathPlot.Api.Controllers
         {
             return await db.Users.ToListAsync();
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<User>> Get(Guid id)
+        {
+            User user = await db.Users.FirstOrDefaultAsync(x => x.Id == id);
+            if (user == null)
+                return NotFound();
+            return new ObjectResult(user);
+        }
         [HttpPost]
         public async Task<ActionResult<User>> Post(User user)
         {
-            if (user == null)
+            User userl = await db.Users.FirstOrDefaultAsync(x => x.Login == user.Login);
+            if (userl != null)
             {
                 return BadRequest();
             }
+            if (user.Login == "admin")
+            {
+                ModelState.AddModelError("Login", "Недопустимый логин - admin");
+            }
 
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             db.Users.Add(user);
             await db.SaveChangesAsync();
             return Ok(user);
