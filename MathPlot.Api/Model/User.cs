@@ -15,7 +15,7 @@ namespace MathPlot.Api.Model
         public string FirstName { get; set; }
         [Required(ErrorMessage = "Укажите Фамилию")]
         public string LastName { get; set; }
-        [StringLength(20, MinimumLength = 3, ErrorMessage = "Логин от 3 до 20")]
+        [StringLength(20, MinimumLength = 3, ErrorMessage = "Логин содержит символы 3 до 20")]
         public string Login { get; set; }
         public bool Genre { get; set; }
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Некорректный адрес")]

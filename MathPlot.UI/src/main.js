@@ -5,6 +5,7 @@ import store from './store'
 import { BootstrapVue} from 'bootstrap-vue'
 import UUID from "vue-uuid";
 import { Datetime } from 'vue-datetime'
+import '../src/assets/css/styles.scss';
  
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)

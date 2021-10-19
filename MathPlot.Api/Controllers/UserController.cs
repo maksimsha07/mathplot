@@ -39,7 +39,7 @@ namespace MathPlot.Api.Controllers
             User userl = await db.Users.FirstOrDefaultAsync(x => x.Login == user.Login);
             if (userl != null)
             {
-                return BadRequest();
+                ModelState.AddModelError("Login", "Такой логин уже используется");
             }
             if (user.Login == "admin")
             {

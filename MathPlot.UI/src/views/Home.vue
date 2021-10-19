@@ -6,12 +6,11 @@
                 <p class="lead">This website is designed to visualize some of the mappings and functions </p>
                 <hr class="my-4">
                 <p class="lead">
-                <a class="btn btn-primary btn-lg" href="#" role="button">Begin</a>
-                <a class="btn btn-primary btn-lg" href="#" role="button" style="margin: 5px;">Begin</a>
+                <b-button variant="secondary">Begin</b-button>
+                <b-button variant="secondary" style="margin-left: 5px">Begin</b-button>
                 </p>
             </div>
-            <div class="col-md-6">
-                
+            <div class="col-md-6">               
                 <img src = "../assets/logo.png" class="img-fluid " style="height: 80%">
             </div>
         </div>
