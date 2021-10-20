@@ -1,19 +1,21 @@
 <template>
 <div>
     <header class="header">
-            <b-navbar toggleable="lg" type="dark" variant="info">
-                <b-navbar-brand href="#" style="margin-left: 5px">
-                    <img src="../../assets/function.png" width="30" height="30" class="d-inline-block align-top" alt="Func">
-                    MathPlot
-                </b-navbar-brand>
-                <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-                <b-collapse id="nav-collapse" is-nav>
-                    <div class="flex-grow-1"></div>
-                    <b-navbar-nav class="ml-auto">
-                        <b-button @click="$bvModal.show('registrationsModal')" type="button" id="buttonSing" variant="secondary">Sing up</b-button>
-                        <b-button @click="$bvModal.show('authModal')" type="button" variant="secondary" style="margin: 0px 5px 0px 5px">Sing in</b-button>
-                    </b-navbar-nav>
-                </b-collapse>
+            <b-navbar type="dark" variant="info">
+                <div class="container-fluid">
+                    <b-navbar-brand href="#" style="margin-left: 5px">
+                        <img src="../../assets/function.png" width="30" height="30" class="d-inline-block align-top" alt="Func">
+                        MathPlot
+                    </b-navbar-brand>
+                    <b-nav-item-dropdown text="Графики" right style="list-style-type: none">
+                        <b-dropdown-item href="#">Отображение Планка</b-dropdown-item>
+                    </b-nav-item-dropdown>
+                    
+                        <div class="d-flex">                  
+                            <b-button @click="$bvModal.show('registrationsModal')" type="button" id="buttonSing" variant="secondary">Sing up</b-button>
+                            <b-button @click="$bvModal.show('authModal')" type="button" variant="secondary" style="margin: 0px 5px 0px 5px">Sing in</b-button>
+                        </div>
+                </div>
             </b-navbar>
     </header>
 
@@ -126,7 +128,10 @@ export default{
             Genre: "true",
             Email: null,
             Phone: null,
-            Password: ""
+            Password: "",
+            links:[
+                {title:'Отображение планка',url:'../'}
+            ]
         }
     },
     methods:

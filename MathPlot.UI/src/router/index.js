@@ -20,6 +20,12 @@ export default new Router({
       meta: {layout: 'MainNoAuth'},
       component: () => import('../views/Main.vue')
     },
+    {
+      path: '/MappPlank',
+      name: 'MappPlank',
+      meta: {layout: 'MainNoAuth'},
+      component: ()=> import('../views/MappPlank.vue')
+    }
   ]
 })
 
