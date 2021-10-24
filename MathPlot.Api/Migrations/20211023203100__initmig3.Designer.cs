@@ -3,45 +3,23 @@ using System;
 using MathPlot.Api.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace MathPlot.Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211023203100__initmig3")]
+    partial class _initmig3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-            modelBuilder.Entity("MathPlot.Api.Model.MappingPlank", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<bool>("bifur")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("lestlameri")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("pokazlapuniva")
-                        .HasColumnType("boolean");
-
-                    b.Property<double>("r")
-                        .HasColumnType("double precision");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MappingPlanks");
-                });
 
             modelBuilder.Entity("MathPlot.Api.Model.User", b =>
                 {
@@ -81,7 +59,7 @@ namespace MathPlot.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("affd2616-5558-4cd5-acf0-f18e50ef402c"),
+                            Id = new Guid("53b52c4f-2192-419b-a62f-6738814760ad"),
                             Email = "deevzmak1234@mail.ru",
                             FirstName = "Максим",
                             Genre = true,

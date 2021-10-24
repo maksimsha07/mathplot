@@ -10,6 +10,7 @@ namespace MathPlot.Api.Model
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         public DbSet<User> Users { get; set; }
+        public DbSet<MappingPlank> MappingPlanks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

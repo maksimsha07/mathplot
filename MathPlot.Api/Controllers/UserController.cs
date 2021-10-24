@@ -1,4 +1,5 @@
 ﻿using MathPlot.Api.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -54,7 +55,12 @@ namespace MathPlot.Api.Controllers
             await db.SaveChangesAsync();
             return Ok(user);
         }
-
+        [Authorize]
+        [HttpGet("{token}")]
+        public IActionResult GetLogin(string token)
+        {
+            return Ok(User.Identity.Name);
+        }
 
 
     }

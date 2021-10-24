@@ -3,15 +3,17 @@ using System;
 using MathPlot.Api.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace MathPlot.Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211023203916__initmig4")]
+    partial class _initmig4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,9 +24,7 @@ namespace MathPlot.Api.Migrations
             modelBuilder.Entity("MathPlot.Api.Model.MappingPlank", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("integer");
 
                     b.Property<bool>("bifur")
                         .HasColumnType("boolean");
@@ -35,8 +35,8 @@ namespace MathPlot.Api.Migrations
                     b.Property<bool>("pokazlapuniva")
                         .HasColumnType("boolean");
 
-                    b.Property<double>("r")
-                        .HasColumnType("double precision");
+                    b.Property<int>("r")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -81,7 +81,7 @@ namespace MathPlot.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("affd2616-5558-4cd5-acf0-f18e50ef402c"),
+                            Id = new Guid("146b2c92-e2d1-4487-af79-ab9476731f5c"),
                             Email = "deevzmak1234@mail.ru",
                             FirstName = "Максим",
                             Genre = true,
