@@ -1,13 +1,15 @@
 <template>
-<div>
+<html>
+    <head>
+    </head>
     <headers />
    
     <!-- Modal Sing IN -->
-
+    <body>
     <router-view />
-
+    </body>
     <footers />
-</div>
+</html>
 </template>
 
 

@@ -24,5 +24,7 @@ namespace MathPlot.Api.Model
         [Required(ErrorMessage = "Укажите пароль")]
         public string Password { get; set; }
 
+        public List<Comment> Comments = new List<Comment>();
+
     }
 }

@@ -7,17 +7,28 @@
                         <img src="../../assets/function.png" width="30" height="30" class="d-inline-block align-top" alt="Func">
                         MathPlot
                     </b-navbar-brand>
-                    <b-nav-item-dropdown text="Графики" right style="list-style-type: none">
-                        <router-link
-                        v-for="link in links"
-                        :key="link.url"
-                        tag="li"
-                        :to="link.url"
-                        >                      
-                        <a href="#" id="functionsLayouts">{{link.title}}</a>
-                        </router-link>
-                    </b-nav-item-dropdown>
-
+                    <div class="d-flex justify-content-center">
+                        <b-nav-item-dropdown text="Графики" right style="list-style-type: none">
+                            <router-link
+                            v-for="link in linksgraf"
+                            :key="link.url"
+                            tag="li"
+                            :to="link.url"
+                            >                      
+                            <a href="#" id="functionsLayouts">{{link.title}}</a>
+                            </router-link>
+                        </b-nav-item-dropdown>
+                        <b-nav-item-dropdown text="Теория" right style="list-style-type: none">
+                            <router-link
+                            v-for="link in linkstheory"
+                            :key="link.url"
+                            tag="li"
+                            :to="link.url"
+                            >                      
+                            <a href="#" id="functionsLayouts">{{link.title}}</a>
+                            </router-link>
+                        </b-nav-item-dropdown>
+                    </div>
                         <div v-if="autorize === false" class="d-flex">                  
                             <b-button @click="$bvModal.show('registrationsModal')" type="button" id="buttonSing" variant="secondary">Sing up</b-button>
                             <b-button @click="$bvModal.show('authModal')" type="button" variant="secondary" style="margin: 0px 5px 0px 5px">Sing in</b-button>
@@ -141,9 +152,13 @@ export default{
             Phone: null,
             Password: "",
             autorize: sessionStorage.getItem(tokenKey) === null ? false:true,
-            links:[
+            linksgraf:[
                 {title:'Отображение планка',url:'/MappPlank'},
                 {title:'Логистическое Отображение',url:'/MappLogistic'}
+            ],
+            linkstheory: [
+                {title:'Одномерные точечные отображения', url: '/OneDimensionalMappings'},
+                {title:'Двумерные точечные одображения', url: '/TwoDimensionalMappings'}
             ]
         }
     },
@@ -240,7 +255,6 @@ export default{
             console.log(this.Login +" " + this.Password)
             const data = await response.json();
             if(response.ok === true){
-                this.autorize = true;
                 sessionStorage.setItem(tokenKey,data.access_token);
                 console.log(data.access_token);
             }

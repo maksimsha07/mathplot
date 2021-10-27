@@ -25,6 +25,18 @@ export default new Router({
       name: 'MappPlank',
       meta: {layout: 'MainNoAuth'},
       component: ()=> import('../views/MappPlank.vue')
+    },
+    {
+      path: '/OneDimensionalMappings',
+      name: 'OneDimensionalMappings',
+      meta: {layout: 'MainNoAuth'},
+      component: ()=> import('../views/OneDimensionalMappings.vue')
+    },
+    {
+      path: '/TwoDimensionalMappings',
+      name: 'TwoDimensionalMappings',
+      meta: {layout: 'MainNoAuth'},
+      component: ()=> import('../views/TwoDimensionalMappings.vue')
     }
   ]
 })
