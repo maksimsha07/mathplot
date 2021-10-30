@@ -10,15 +10,15 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'vue-datetime/dist/vue-datetime.css'
-import MainNoAuthLayout from  '@/layouts/MainNoAuthLayout'
+import MainLayout from  '@/layouts/MainLayout'
 export default {
   computed:{
     layout(){
-      return (this.$route.meta.layout || 'MainNoAuth') + '-layout'
+      return (this.$route.meta.layout || 'Main') + '-layout'
     }
   },
   components:{
-    MainNoAuthLayout
+    MainLayout
   }
 }
 </script>

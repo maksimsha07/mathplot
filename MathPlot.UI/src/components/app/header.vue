@@ -157,8 +157,8 @@ export default{
                 {title:'Логистическое Отображение',url:'/MappLogistic'}
             ],
             linkstheory: [
-                {title:'Одномерные точечные отображения', url: '/OneDimensionalMappings'},
-                {title:'Двумерные точечные одображения', url: '/TwoDimensionalMappings'}
+                {title:'Одномерные точечные отображения', url: '/OneDimensionalMappings/0'},
+                {title:'Двумерные точечные одображения', url: '/TwoDimensionalMappings/0'}
             ]
         }
     },
