@@ -94,7 +94,19 @@
                     <img src="https://chart.googleapis.com/chart?cht=tx&amp;chl=x^*_2"> становится неустойчивой, а вокруг нее возникает устойчивый (его также называют <em>предельный</em>)
                     цикл с периодом 2 (см. Рис. 3.). При следующем критическом значении <img src="https://chart.googleapis.com/chart?cht=tx&amp;chl=r_2 = 1%2B\sqrt{6}\approx 3.45">
                     уже цикл с периодом 2 становится неустойчивым, и появляется устойчивый цикл с периодом 4. Такие изменения называют бифуркациями удвоения периода.
-                </p>    
+                </p>
+                <div style="text-align: center">
+                    <router-link
+                        to="/OneDimensionalMappings/0"
+                        >                      
+                        <a href="#" id="functionsLayouts">Назад</a>
+                    </router-link>
+                    <router-link
+                        to="/OneDimensionalMappings/2"
+                        >                      
+                        <a href="#" id="functionsLayouts">Далее</a>
+                    </router-link>
+                </div>    
             </b-col>
             <b-col></b-col>
         </b-row>

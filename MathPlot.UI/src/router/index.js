@@ -43,7 +43,20 @@ export default new Router({
       name: 'TheoryLogistic',
       meta: {layout: 'Main'},
       component: ()=> import('../views/TheoryLogistic.vue')
+    },
+    {
+      path: '/OneDimensionalMappings/2',
+      name: 'BifurcationTheory',
+      meta: {layout: 'Main'},
+      component: ()=> import('../views/BifurcationTheory.vue')
+    },
+    {
+      path: '/OneDimensionalMappings/3',
+      name: 'LyapunovExponentsTheory',
+      meta: {layout: 'Main'},
+      component: ()=> import('../views/LyapunovExponentsTheory.vue')
     }
+
   ]
 })
 

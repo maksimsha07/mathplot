@@ -126,7 +126,11 @@
                     динамика которой задается <em>логистическим отображением</em>.
                 </p>
                 <div style="text-align: center">
-                    
+                     <router-link
+                            to="/OneDimensionalMappings/1"
+                            >                      
+                            <a href="#" id="functionsLayouts">Далее</a>
+                        </router-link>
                 </div>
             </b-col>
             <b-col></b-col>

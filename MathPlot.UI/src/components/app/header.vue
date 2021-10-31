@@ -8,14 +8,14 @@
                         MathPlot
                     </b-navbar-brand>
                     <div class="d-flex justify-content-center">
-                        <b-nav-item-dropdown text="Графики" right style="list-style-type: none">
+                        <b-nav-item-dropdown text="Графики" right style="list-style-type: none" >
                             <router-link
                             v-for="link in linksgraf"
                             :key="link.url"
                             tag="li"
                             :to="link.url"
                             >                      
-                            <a href="#" id="functionsLayouts">{{link.title}}</a>
+                            <b-dropdown-item href="to" id="functionsLayouts">{{link.title}}</b-dropdown-item>
                             </router-link>
                         </b-nav-item-dropdown>
                         <b-nav-item-dropdown text="Теория" right style="list-style-type: none">
@@ -25,7 +25,7 @@
                             tag="li"
                             :to="link.url"
                             >                      
-                            <a href="#" id="functionsLayouts">{{link.title}}</a>
+                            <b-dropdown-item href="to" id="functionsLayouts">{{link.title}}</b-dropdown-item>
                             </router-link>
                         </b-nav-item-dropdown>
                     </div>
