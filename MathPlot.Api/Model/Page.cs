@@ -10,9 +10,12 @@ namespace MathPlot.Api.Model
     public class Page
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
+        public int Id { get; set; }
         public string name { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+        public Page(){
+            Comments = new List<Comment>();
+        }
 
-        public List<Comment> Comments = new List<Comment>();
     }
 }

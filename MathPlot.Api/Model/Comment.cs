@@ -10,15 +10,12 @@ namespace MathPlot.Api.Model
     public class Comment
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
-        [Required]
+        public int Id { get; set; }
         public string commented { get; set; }
 
+        public Guid UserId { get; set; }
+        public User user { get; set; }
         public int PageId { get; set; }
-        public Page Page { get; set; }
-
-        public int UserId { get; set; }
-
-        public User User { get; set; }
+        public Page page { get; set; }
     }
 }

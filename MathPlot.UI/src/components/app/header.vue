@@ -34,8 +34,8 @@
                             <b-button @click="$bvModal.show('authModal')" type="button" variant="secondary" style="margin: 0px 5px 0px 5px">Sing in</b-button>
                         </div>
                         <div v-if="autorize === true" class="d-flex">                  
-                            <b-button type ="button" variant="secondary" v-on:click="logouts">Logout</b-button>
-                            <p></p>
+                            <b-button type ="submit" variant="secondary" v-on:click="logouts">Logout</b-button>
+                            <p>{{logn}}</p>
                         </div>
                 </div>
             </b-navbar>
@@ -140,10 +140,12 @@
 <script>
 import { uuid } from 'vue-uuid';
 var tokenKey = "accessToken";
+var lg = "login";
 export default{
     data(){
         return{
             Id: uuid.v1(),
+            logn: sessionStorage.getItem(lg),
             FirstName : "",
             LastName: "",
             Login: "",
@@ -256,6 +258,7 @@ export default{
             const data = await response.json();
             if(response.ok === true){
                 sessionStorage.setItem(tokenKey,data.access_token);
+                sessionStorage.setItem(lg,this.Login);
                 console.log(data.access_token);
             }
             else{
@@ -280,6 +283,7 @@ export default{
         logouts(){
             sessionStorage.removeItem(tokenKey);
             this.autorize = false;
+            window.location.reload();
         }
 
     }

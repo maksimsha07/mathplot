@@ -132,6 +132,20 @@
                             <a href="#" id="functionsLayouts">Далее</a>
                         </router-link>
                 </div>
+                <form id="commentForm">
+                    <div v-if ="autorize === true" class="form-group row">
+                        <div class="form-group col-md-10">
+                            <input type="text" class="form-control" v-model="Comment">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <b-button type="button" v-on:click="addComment" form="commentForm" variant="secondary">Submit</b-button>
+                        </div>
+                    </div>
+                    <div v-if="autorize === false">
+                        <p>Авторизируйтесь, чтобы оствлять комментарии</p>
+                    </div>
+                </form>
+                <div id="comments"></div>
             </b-col>
             <b-col></b-col>
         </b-row>
@@ -139,6 +153,68 @@
 </template>
 
 <script>
+export default{
+     data(){
+        return{
+            Comment: "" ,
+            pageName: "OneDimensionalMappings",
+            autorize: sessionStorage.getItem("accessToken") === null ? false:true      
+        }
+    },
+    methods:{
+        async addComment(){
+             const response = await fetch("http://localhost:56063/api/commented",
+           {
+               method: "POST",
+               headers: {"Accept": "application/json", "Content-Type": "application/json"},
+               body: JSON.stringify({
+                   userName: sessionStorage.getItem("login"),
+                   pageName: this.pageName,
+                   commentText: this.Comment
+               })
+           });
+           if(response.ok === true){
+               console.log(response.json());
+           }
+           else{
+                const errorData = await response.json();             
+                console.log("errors",errorData);
+           }
+        },
+        async getComments(){
+             const response = await fetch("http://localhost:56063/api/commented/"+this.pageName,
+            {
+                method: "GET",
+                headers: {"Accept": "application/json"}
+            });
+            if(response.status >=200 && response.status <= 299){
+                return await response.json();               
+            }
+            else{
+                console.log(response.status, response.statusText);
+            }
+        },
+        async addCommentInDOM(){
+            const comments = await this.getComments();
+            this.clearBox("comments");
+            comments.forEach(comment => {
+                const p = document.createElement("p");
+                p.append(comment);
+                document.getElementById("comments").append(p);
+            });
+        },
+        clearBox(elementID)
+        {
+            var div = document.getElementById(elementID);
+            while(div.firstChild){
+                div.removeChild(div.firstChild);
+             }
+        }
+    },
+    beforeMount(){
+        this.addCommentInDOM()
+    }
+}
 </script>
 <style>
    p {
