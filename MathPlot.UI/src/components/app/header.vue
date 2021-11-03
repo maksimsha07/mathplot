@@ -131,7 +131,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <b-button type="submit" form="authForm" variant="secondary" v-on:click="getTokenAsync">Submit</b-button>
+                <b-button type="button" form="authForm" variant="secondary" v-on:click="getTokenAsync">Submit</b-button>
             </div>
      </b-modal>
 </div>

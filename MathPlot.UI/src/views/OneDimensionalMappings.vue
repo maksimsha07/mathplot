@@ -175,6 +175,9 @@ export default{
            });
            if(response.ok === true){
                console.log(response.json());
+               const p = document.createElement("p");
+                p.append(sessionStorage.getItem("login")+":"+ this.Comment);
+                document.getElementById("comments").append(p);
            }
            else{
                 const errorData = await response.json();             
@@ -196,7 +199,8 @@ export default{
         },
         async addCommentInDOM(){
             const comments = await this.getComments();
-            this.clearBox("comments");
+            console.log(comments);
+            this.clearBox("comments");           
             comments.forEach(comment => {
                 const p = document.createElement("p");
                 p.append(comment);

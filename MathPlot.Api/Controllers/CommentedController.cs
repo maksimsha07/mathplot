@@ -22,7 +22,7 @@ namespace MathPlot.Api.Controllers
         [HttpGet("{name}")]
         public async Task<List<string>> Get(string name)
         {
-            var commenst = await db.Comments.Where(p => p.page.name == name).Select(p=>p.commented).ToListAsync();
+            var commenst = await db.Comments.Where(p => p.page.name == name).Select(p => p.user.Login+":"+ p.commented).ToListAsync();
             if (commenst == null)
             {
                 return null;
