@@ -3,15 +3,17 @@ using System;
 using MathPlot.Api.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace MathPlot.Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211105204016__initmig12")]
+    partial class _initmig12
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,17 +85,11 @@ namespace MathPlot.Api.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
                     b.Property<bool>("bifur")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("lestlameri")
                         .HasColumnType("boolean");
-
-                    b.Property<string>("path")
-                        .HasColumnType("text");
 
                     b.Property<bool>("pokazlapuniva")
                         .HasColumnType("boolean");
@@ -102,8 +98,6 @@ namespace MathPlot.Api.Migrations
                         .HasColumnType("double precision");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("MappingSinus");
                 });
@@ -188,7 +182,7 @@ namespace MathPlot.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0f2eb7e2-46a0-429c-97a2-94931e9a8b03"),
+                            Id = new Guid("2077a3e5-3101-48ce-93fb-81a6a5db398d"),
                             Email = "deevzmak1234@mail.ru",
                             FirstName = "Максим",
                             Genre = true,
@@ -219,17 +213,6 @@ namespace MathPlot.Api.Migrations
                 });
 
             modelBuilder.Entity("MathPlot.Api.Model.MappingPlank", b =>
-                {
-                    b.HasOne("MathPlot.Api.Model.User", "user")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("user");
-                });
-
-            modelBuilder.Entity("MathPlot.Api.Model.MappingSinus", b =>
                 {
                     b.HasOne("MathPlot.Api.Model.User", "user")
                         .WithMany()

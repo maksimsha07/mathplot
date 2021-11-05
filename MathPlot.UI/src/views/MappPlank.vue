@@ -58,12 +58,12 @@ export default{
            {
                method: "POST",
                headers: {"Accept": "application/json", "Content-Type": "application/json"},
-               body: JSON.stringify({
+               body:({
                     r: Number(this.kofr),
                     lestlameri: this.lestlameri,
                     bifur: this.bifur,
-                    pokazlapuniva: this.pokazlapuniva
-
+                    pokazlapuniva: this.pokazlapuniva,
+                    login: sessionStorage.getItem("login") === null ? null:sessionStorage.getItem("login"),
                })
            });
            if(response.ok === true){

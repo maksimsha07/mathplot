@@ -26,5 +26,9 @@ namespace MathPlot.Api.Model
 
         public List<Comment> Comments = new List<Comment>();
 
+        public List<MappingPlank> MappingPlanks = new List<MappingPlank>();
+
+        public List<MappingSinus> MappingSinuss = new List<MappingSinus>();
+
     }
 }

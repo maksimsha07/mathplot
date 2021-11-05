@@ -19,5 +19,8 @@ namespace MathPlot.Api.Model
         public bool bifur { get; set; }
         [Required]
         public bool pokazlapuniva { get; set; }
+        public string path { get; set; }
+        public Guid UserId { get; set; }
+        public User user { get; set; }
     }
 }
