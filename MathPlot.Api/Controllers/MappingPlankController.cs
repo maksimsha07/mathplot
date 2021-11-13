@@ -1,9 +1,12 @@
-﻿using MathPlot.Api.Model;
+﻿using IronPython.Hosting;
+using MathPlot.Api.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Scripting.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,27 +25,42 @@ namespace MathPlot.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<MappingPlank>> Post(double r,bool lestlameri, bool bifur, bool pokazlapuniva,string login)
+        public async Task<ActionResult<MappingPlank>> Post(MappingFunctions mappingFunctions)
         {
             string mainpath = "C:\\Users\\Admin\\source\\repos\\MathPlot\\MathPlot\\mathplot.ui\\Charts";
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                    return BadRequest(ModelState);
             }
-            if (login == null)
+            if (mappingFunctions.login == null && mappingFunctions.login == "")
             {
                 return Ok();
             }
             else 
             {
-                if (!Directory.Exists(mainpath+"\\"+login))
+                if (!Directory.Exists(mainpath+"\\"+ mappingFunctions.login))
                 {
-                    Directory.CreateDirectory(mainpath + "\\"+login);
+                    Directory.CreateDirectory(mainpath + "\\"+ mappingFunctions.login);
                 }
-                if (!Directory.Exists(mainpath +"\\"+ login +"\\"+ "mappingplank"))
+                if (!Directory.Exists(mainpath +"\\"+ mappingFunctions.login + "\\"+ "mappingplank"))
                 {
-                    Directory.CreateDirectory(mainpath + "\\" + login + "\\" + "mappingplank");
+                    Directory.CreateDirectory(mainpath + "\\" + mappingFunctions.login + "\\" + "mappingplank");
                 }
+
+                User user = await db.Users.FirstOrDefaultAsync(x => x.Login == mappingFunctions.login);
+                ProcessStartInfo start = new ProcessStartInfo();
+                start.FileName = "C:\\Users\\Admin\\source\\repos\\MathPlot\\MathPlot\\MathPlot.Api\\PythonScripts\\OneDimensionalMappings\\mappingSinus.py";
+                start.UseShellExecute = false;
+                start.RedirectStandardOutput = true;
+                using (Process process = Process.Start(start))
+                {
+                    using (StreamReader reader = process.StandardOutput)
+                    {
+                        string result = reader.ReadToEnd();
+                        Console.Write(result);
+                    }
+                }
+                /*
                 MappingPlank mappingPlank =  new MappingPlank
                 {
                     r = r,
@@ -54,7 +72,8 @@ namespace MathPlot.Api.Controllers
                 };
                 db.MappingPlanks.Add(mappingPlank);
                 await db.SaveChangesAsync();
-                return Ok(mappingPlank);
+                */
+                return Ok();
             }
         }
     }

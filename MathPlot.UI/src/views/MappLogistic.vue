@@ -24,3 +24,4 @@
       <canvas id="myChart" width="628" height="400"></canvas>
     </b-container>
 </template>
+

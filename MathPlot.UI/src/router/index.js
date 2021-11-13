@@ -27,6 +27,12 @@ export default new Router({
       component: ()=> import('../views/MappPlank.vue')
     },
     {
+      path: '/MappLogistic',
+      name: 'MappLogistic',
+      meta: {layout: 'Main'},
+      component: ()=> import('../views/MappLogistic.vue')
+    },
+    {
       path: '/OneDimensionalMappings/0',
       name: 'OneDimensionalMappings',
       meta: {layout: 'Main'},
