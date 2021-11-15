@@ -40,7 +40,7 @@
                     устойчивую неподвижную точку, однако при увеличении <img src="https://chart.googleapis.com/chart?cht=tx&amp;chl=r"> сначала система образует цикл второго порядка, затем четвертого и вскоре демонстрирует хаос.
                 </p>
                 <div style="text-align: center">
-                    <img src="../assets/paint_5.png">
+                    <img src="../../assets/paint_5.png">
                 </div>
                 <p>
                     Как показано на бифуркационной диаграмме, изменение управляющего параметра влечет <em>каскад
@@ -94,7 +94,7 @@
                     главное, чтобы оно было унимодальным (имело один экстремум).
                 </p>
                 <p>
-                    <img src="../assets/paint_6.png" style="float: right">
+                    <img src="../../assets/paint_6.png" style="float: right">
                     Получается, что любое отображение, испытывающее каскад бифуркаций удвоения периода, переходит к хаосу с одинаковой скоростью.
                 </p>
                 <p>
@@ -139,7 +139,7 @@
                     можно наблюдать соответствующие периоды.
                 </p>
                 <div style="text-align: center">
-                    <img src="../assets/paint_7.png">
+                    <img src="../../assets/paint_7.png">
                 </div>
                 <div style="text-align: center">
                     <router-link

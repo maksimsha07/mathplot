@@ -27,7 +27,7 @@
                     характеризующая скороста популяции («рождаемость минус смертность»).
                 </p>
                 <div style="text-align: center">
-                    <img src="../assets/paint_2.png">
+                    <img src="../../assets/paint_2.png">
                 </div>   
                 <p>
                     На Рис. 2 и Рис. 3 с помощью уже знакомой лестницы Ламерея показано, как
@@ -66,10 +66,10 @@
                     </ol>                   
                 </p>
                 <div style="text-align: center">
-                    <img src="../assets/paint_3.png">
+                    <img src="../../assets/paint_3.png">
                 </div>
                 <div style="text-align: center">
-                    <img src="../assets/paint_4.png">
+                    <img src="../../assets/paint_4.png">
                 </div>
                 <p>
                     В конечном счете получается похожая на "лестницу" ломаная линия, по которой

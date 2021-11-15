@@ -4,12 +4,12 @@
             <b-col>
             </b-col>
             <b-col>
-                <h1>Отображение Планка</h1>
+                <h1>Отображение синус</h1>
                 <b-form id="mappingplank">
                     <div class="form-group row" id="modalrowsize">
                         <div class="form-group col-md-6">
-                            <label for="r">Значение r в диапазоне (0;7)</label>
-                            <b-form-input type="number" size="sx-2" id="r" min="0" max="7" v-model="r"></b-form-input>
+                            <label for="r">Значение r в диапазоне (0;1)</label>
+                            <b-form-input type="number" size="sx-2" id="r" min="0" max="1" v-model="r"></b-form-input>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="lameria">Построить с лестницей Ламерея</label>
@@ -37,7 +37,7 @@
                     <scatter-chart :chart-data="datacollectionb"/>
                 </div>
                 <div class="small" v-if="pokazlapuniva">
-                    <line-chart :chart-data="datacollectionl"/>
+                    <line-chart :chart-data="datacollectionl" :options="chartOptionsl"/>
                 </div>
             </b-col>
             <b-col>               
@@ -47,8 +47,8 @@
 </template>
 
 <script>
- import LineChart from '../components/LineChart.js'
- import ScatterChart from '../components/ScatterChart.js'
+ import LineChart from '../../components/MoreChart/LineChart.js'
+ import ScatterChart from '../../components/MoreChart/ScatterChart.js'
 export default{
     components: {
       LineChart,
@@ -56,7 +56,11 @@ export default{
     },
     data(){
         return{
-            r: 0.8,
+             r: 0.8,
+            rMax:1,
+            rmin: 0,
+            xMax: 1,
+            xMin: 0,
             lestlameri: false,
             bifur: false,
             pokazlapuniva: false,
@@ -64,6 +68,7 @@ export default{
             datacollectionb: null,
             datacollectionl: null,
             chartOptions: null,
+            chartOptionsl: null,
             x: [],
             y: [],
             ly: [],
@@ -76,13 +81,16 @@ export default{
        f(x){
            return this.r*Math.sin(Math.PI*x)
        },
-      getRandomInt () {
-        return Math.floor(Math.random() * (50 - 5 + 1)) + 5
-      },
+       fr(x,r){
+            return r*Math.sin(Math.PI*x)
+       },
+       fDiff(x,r){
+           return Math.log(Math.abs(Math.PI*r*Math.cos(Math.PI*x)))
+       },
       chartMapping(){
           this.x = []
           this.y = []
-        for (let i = 0; i < 1; i = i+0.01) {
+        for (let i = this.xMin; i < this.xMax; i = i+0.01) {
            this.x.push(i.toFixed(2)) 
            this.y.push(this.f(i))          
         }
@@ -120,9 +128,9 @@ export default{
         }
       },
       chartBifur(){
-          this.rb = []
-        for (let i = 0; i < 1; i = i+0.001) {
-            this.rb.push(i)           
+        this.rb = []
+        for (let i = this.rmin; i < this.rMax; i = i+0.001) {
+            this.rb.push(i.toFixed(2))           
         }
         var rdn = this.rb[Math.floor(Math.random()*this.rb.length)]
         const nn = this.rb.length
@@ -131,7 +139,7 @@ export default{
         for (let k = 0; k < nn;k++) {
             xx = [rdn]
             for (let n = 0; n < nn-1; n++) {
-                xx.push(this.rb[k]*Math.sin(Math.PI*xx[n]))
+                xx.push(this.fr(xx[n],this.rb[k]))
                 if(n>nn-20){
                     datas.push({x:this.rb[k],y:xx[xx.length-1]})
                 }
@@ -149,24 +157,25 @@ export default{
         }
       },
       chartLyapunov(){
+          const start= new Date().getTime();
           this.rb = []
-          for (let i = 0; i < 1; i = i+0.001) {
-            this.rb.push(i)           
+          for (let i = this.rmin; i < this.rMax; i = i+0.001) {
+            this.rb.push(i.toFixed(2))           
          } 
-          var summ = []
+          var summ = [] 
           for (let j = 0; j < this.rb.length; j++) {
               var sum = 0
               var xl = [0.1]
               var xll = []
               for (let i = 0; i < this.rb.length-1; i++) {
-                  xl.push(this.rb[j]*Math.sin(Math.PI*xl[i]))
-                  xll.push(Math.log(Math.abs(Math.PI*this.rb[j]*Math.cos(Math.PI*xl[i]))))
-              }
-              for (let k = 0; k < xll.length; k++) {
-                  sum = sum+ xll[k]                  
+                  xl.push(this.fr(xl[i],this.rb[j]))
+                  xll.push(this.fDiff(xl[i],this.rb[j]))
+                  sum = sum+ xll[i] 
               }
               summ.push(sum/this.rb.length)
           }
+          const end = new Date().getTime();
+          console.log(end-start);
            this.datacollectionl = {
           labels: this.rb,
           datasets: [
@@ -175,9 +184,24 @@ export default{
               data: summ,
               fill: false,
               pointRadius: 0,
-              borderColor: 'rgb(139, 0, 0)'
+              borderColor: 'rgb(139, 0, 0)',
+              borderWidth: 1,
             }
           ]
+        }
+        this.chartOptionsl = {
+            responsive: true,
+            scales: {
+               yAxes: [{
+                gridLines: {
+                    display: true
+                },
+                ticks: {   
+                    min: -1,     
+                }
+                
+                }]
+            }
         }
       },
       paintChart(){

@@ -155,8 +155,11 @@ export default{
             Password: "",
             autorize: sessionStorage.getItem(tokenKey) === null ? false:true,
             linksgraf:[
+                {title:'Логистическое Отображение',url:'/MappLogistic'},
+                {title:'Отображение Синус', url: '/MappSinus'},
+                {title:'Отображение Гаусса', url:'/MappGaus'},
+                {title:'Двусторонее отображение',url:'/MappTwoStor'},
                 {title:'Отображение планка',url:'/MappPlank'},
-                {title:'Логистическое Отображение',url:'/MappLogistic'}
             ],
             linkstheory: [
                 {title:'Одномерные точечные отображения', url: '/OneDimensionalMappings/0'},

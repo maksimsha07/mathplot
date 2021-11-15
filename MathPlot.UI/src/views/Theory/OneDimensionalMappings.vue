@@ -118,7 +118,7 @@
                      придем к циклу <img src="https://chart.googleapis.com/chart?cht=tx&amp;chl=x^{*^{(1)}}-x^{*^{(2)}}">.
                 </p>
                 <div style="text-align: center">
-                    <img src="../assets/paint_1.png">
+                    <img src="../../assets/paint_1.png">
                 </div>   
                 <p>
                     Алгоритмы перечисленных выше методов будут ниже обсуждены на конкретных

@@ -24,43 +24,61 @@ export default new Router({
       path: '/MappPlank',
       name: 'MappPlank',
       meta: {layout: 'Main'},
-      component: ()=> import('../views/MappPlank.vue')
+      component: ()=> import('../views/Mapping/MappPlank.vue')
     },
     {
       path: '/MappLogistic',
       name: 'MappLogistic',
       meta: {layout: 'Main'},
-      component: ()=> import('../views/MappLogistic.vue')
+      component: ()=> import('../views/Mapping/MappLogistic.vue')
+    },
+    {
+      path: '/MappSinus',
+      name: 'MappSinus',
+      meta: {layout: 'Main'},
+      component: ()=> import('../views/Mapping/MappSinus.vue')
+    },
+    {
+      path: '/MappTwoStor',
+      name: 'MappTwoStor',
+      meta: {layout: 'Main'},
+      component: ()=> import('../views/Mapping/MappTwoStor.vue')
+    },
+    {
+      path: '/MappGaus',
+      name: 'MappGaus',
+      meta: {layout: 'Main'},
+      component: ()=> import('../views/Mapping/MappGaus.vue')
     },
     {
       path: '/OneDimensionalMappings/0',
       name: 'OneDimensionalMappings',
       meta: {layout: 'Main'},
-      component: ()=> import('../views/OneDimensionalMappings.vue')
+      component: ()=> import('../views/Theory/OneDimensionalMappings.vue')
     },
     {
       path: '/TwoDimensionalMappings/0',
       name: 'TwoDimensionalMappings',
       meta: {layout: 'Main'},
-      component: ()=> import('../views/TwoDimensionalMappings.vue')
+      component: ()=> import('../views/Theory/TwoDimensionalMappings.vue')
     },
     {
       path: '/OneDimensionalMappings/1',
       name: 'TheoryLogistic',
       meta: {layout: 'Main'},
-      component: ()=> import('../views/TheoryLogistic.vue')
+      component: ()=> import('../views/Theory/TheoryLogistic.vue')
     },
     {
       path: '/OneDimensionalMappings/2',
       name: 'BifurcationTheory',
       meta: {layout: 'Main'},
-      component: ()=> import('../views/BifurcationTheory.vue')
+      component: ()=> import('../views/Theory/BifurcationTheory.vue')
     },
     {
       path: '/OneDimensionalMappings/3',
       name: 'LyapunovExponentsTheory',
       meta: {layout: 'Main'},
-      component: ()=> import('../views/LyapunovExponentsTheory.vue')
+      component: ()=> import('../views/Theory/LyapunovExponentsTheory.vue')
     }
 
   ]

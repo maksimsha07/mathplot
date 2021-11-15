@@ -97,7 +97,7 @@
                     На Рис. 8 построена зависимость показателя Ляпунова для логистического отображения от управляющего параметра <img src="https://chart.googleapis.com/chart?cht=tx&amp;chl=r">.
                 </p>
                 <div style="text-align: center">
-                    <img src="../assets/paint_8.png">
+                    <img src="../../assets/paint_8.png">
                 </div>
                 <p>
                     Обратим внимание, что показатель Ляпунова на Рис. 8 обращается в ноль при тех
