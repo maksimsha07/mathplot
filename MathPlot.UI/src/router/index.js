@@ -79,6 +79,12 @@ export default new Router({
       name: 'LyapunovExponentsTheory',
       meta: {layout: 'Main'},
       component: ()=> import('../views/Theory/LyapunovExponentsTheory.vue')
+    },
+    {
+      path: '/Profile',
+      name: 'Profile',
+      meta: {layout: 'Main'},
+      component: ()=> import('../views/User/User.vue')
     }
 
   ]

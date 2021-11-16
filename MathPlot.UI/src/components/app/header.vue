@@ -18,7 +18,7 @@
                             <b-dropdown-item href="to" id="functionsLayouts">{{link.title}}</b-dropdown-item>
                             </router-link>
                         </b-nav-item-dropdown>
-                        <b-nav-item-dropdown text="Теория" right style="list-style-type: none">
+                        <b-nav-item-dropdown text="Теория" style="list-style-type: none">
                             <router-link
                             v-for="link in linkstheory"
                             :key="link.url"
@@ -35,7 +35,14 @@
                         </div>
                         <div v-if="autorize === true" class="d-flex">                  
                             <b-button type ="submit" variant="secondary" v-on:click="logouts">Logout</b-button>
-                            <p>{{logn}}</p>
+                            <b-nav-item-dropdown right style="list-style-type: none">
+                            <router-link
+                                tag="li"
+                                to="/Profile"
+                            >                      
+                                <b-dropdown-item href="to" >Профиль</b-dropdown-item>
+                            </router-link>
+                            </b-nav-item-dropdown>
                         </div>
                 </div>
             </b-navbar>
@@ -262,7 +269,7 @@ export default{
             if(response.ok === true){
                 sessionStorage.setItem(tokenKey,data.access_token);
                 sessionStorage.setItem(lg,this.Login);
-                console.log(data.access_token);
+                 window.location.reload();
             }
             else{
                 console.log("Error: ", response.status, data.errorText);

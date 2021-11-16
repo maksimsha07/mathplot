@@ -31,13 +31,19 @@
                     </div>
                 </b-form>
                 <div class="small">
-                    <line-chart :chart-data="datacollection" :options="chartOptions "/>
+                    <line-chart :chart-data="datacollection" :options="chartOptions" ref='chart'/>                  
+                    <b-button v-if="datacollection != null"  type="button" variant="secondary" v-on:click="downloadChartPng('chart')">Скачать</b-button>
+                    <b-button v-if="datacollection != null" type="button" variant="secondary" style="margin-left: 5px">Сохранить</b-button>
                 </div>
                 <div class="small" v-if="bifur">
-                    <scatter-chart :chart-data="datacollectionb"/>
+                    <scatter-chart :chart-data="datacollectionb" id="chartb" ref='chartb'/>
+                    <b-button v-if="datacollectionb != null"  type="button" variant="secondary" v-on:click="downloadChartPng('chartb')">Скачать</b-button>
+                    <b-button v-if="datacollectionb != null" type="button" variant="secondary" style="margin-left: 5px">Сохранить</b-button>
                 </div>
                 <div class="small" v-if="pokazlapuniva">
-                    <line-chart :chart-data="datacollectionl" :options="chartOptionsl"/>
+                    <line-chart :chart-data="datacollectionl" :options="chartOptionsl" ref='chartl'/>
+                    <b-button v-if="datacollectionl != null"  type="button" variant="secondary" v-on:click="downloadChartPng('chartl')">Скачать</b-button>
+                    <b-button v-if="datacollectionl != null" type="button" variant="secondary" style="margin-left: 5px">Сохранить</b-button>
                 </div>
             </b-col>
             <b-col>               
@@ -206,14 +212,23 @@ export default{
             }
         }
       },
-      paintChart(){
-          this.chartMapping()
+       paintChart(){
+        this.chartMapping()
           if(this.bifur){
               this.chartBifur()
           }
           if(this.pokazlapuniva){
             this.chartLyapunov()
           }
+      },
+      downloadChartPng(ref){
+        const component = this.$refs[ref] 
+        const canvas = component.$refs.canvas
+        var dataURL = canvas.toDataURL("image/png")
+        var link = document.createElement("a")
+        link.href = dataURL
+        link.download = "my-image-name.png";
+        link.click();
       },
       async paintmapp(){
            const response = await fetch("http://localhost:56063/api/mappingplank",
