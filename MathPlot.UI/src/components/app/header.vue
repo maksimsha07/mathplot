@@ -1,14 +1,17 @@
 <template>
 <div>
     <header class="header">
-            <b-navbar type="dark" variant="info">
-                <div class="container-fluid">
-                    <b-navbar-brand href="#" style="margin-left: 5px">
+        <b-container fluid style="background-color:RGB(178, 34, 34)">
+            <b-row>
+                <b-col>
+                    <a href="#" style="margin-left: 5px">
                         <img src="../../assets/function.png" width="30" height="30" class="d-inline-block align-top" alt="Func">
                         MathPlot
-                    </b-navbar-brand>
+                    </a>
+                </b-col>
+                <b-col cols="10">
                     <div class="d-flex justify-content-center">
-                        <b-nav-item-dropdown text="Графики" right style="list-style-type: none" >
+                        <b-dropdown text="Графики" variant="link">
                             <router-link
                             v-for="link in linksgraf"
                             :key="link.url"
@@ -17,8 +20,8 @@
                             >                      
                             <b-dropdown-item href="to" id="functionsLayouts">{{link.title}}</b-dropdown-item>
                             </router-link>
-                        </b-nav-item-dropdown>
-                        <b-nav-item-dropdown text="Теория" style="list-style-type: none">
+                        </b-dropdown>
+                        <b-dropdown text="Теория" variant="link" style="list-style-type: none">
                             <router-link
                             v-for="link in linkstheory"
                             :key="link.url"
@@ -27,8 +30,11 @@
                             >                      
                             <b-dropdown-item href="to" id="functionsLayouts">{{link.title}}</b-dropdown-item>
                             </router-link>
-                        </b-nav-item-dropdown>
+                        </b-dropdown>
                     </div>
+                </b-col>
+                <b-col>
+                    <div class="d-flex justify-content-left">
                         <div v-if="autorize === false" class="d-flex">                  
                             <b-button @click="$bvModal.show('registrationsModal')" type="button" id="buttonSing" variant="secondary">Sing up</b-button>
                             <b-button @click="$bvModal.show('authModal')" type="button" variant="secondary" style="margin: 0px 5px 0px 5px">Sing in</b-button>
@@ -38,14 +44,16 @@
                             <b-nav-item-dropdown right style="list-style-type: none">
                             <router-link
                                 tag="li"
-                                to="/Profile"
+                                :to="{name: 'ProfileUser', params:{login: logn}}"
                             >                      
-                                <b-dropdown-item href="to" >Профиль</b-dropdown-item>
+                                <b-dropdown-item href="to">Профиль</b-dropdown-item>
                             </router-link>
                             </b-nav-item-dropdown>
                         </div>
-                </div>
-            </b-navbar>
+                    </div>
+                </b-col>
+            </b-row>
+        </b-container>
     </header>
 
     <!-- Modal Sing UP -->
@@ -152,7 +160,7 @@ export default{
     data(){
         return{
             Id: uuid.v1(),
-            logn: sessionStorage.getItem(lg),
+            logn:  'maksim',  //sessionStorage.getItem(lg),
             FirstName : "",
             LastName: "",
             Login: "",
@@ -160,7 +168,7 @@ export default{
             Email: null,
             Phone: null,
             Password: "",
-            autorize: sessionStorage.getItem(tokenKey) === null ? false:true,
+            autorize: true,//sessionStorage.getItem(tokenKey) === null ? false:true,
             linksgraf:[
                 {title:'Логистическое Отображение',url:'/MappLogistic'},
                 {title:'Отображение Синус', url: '/MappSinus'},

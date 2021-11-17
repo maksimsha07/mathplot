@@ -81,10 +81,15 @@ export default new Router({
       component: ()=> import('../views/Theory/LyapunovExponentsTheory.vue')
     },
     {
-      path: '/Profile',
-      name: 'Profile',
+      path: '/Profile/:login',
+      name: 'ProfileUser',
       meta: {layout: 'Main'},
       component: ()=> import('../views/User/User.vue')
+    },
+    {
+      path: '*',
+      name: 'NotFound',
+      component: () => import('../views/Home.vue')
     }
 
   ]
