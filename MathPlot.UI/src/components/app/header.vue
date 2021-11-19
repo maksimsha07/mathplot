@@ -4,10 +4,14 @@
         <b-container fluid style="background-color:RGB(178, 34, 34)">
             <b-row>
                 <b-col>
-                    <a href="#" style="margin-left: 5px">
-                        <img src="../../assets/function.png" width="30" height="30" class="d-inline-block align-top" alt="Func">
-                        MathPlot
-                    </a>
+                     <router-link
+                                :to="{name: 'home'}"
+                            >     
+                        <a href="to" style="margin-left: 5px">
+                            <img src="../../assets/function.png" width="30" height="30" class="d-inline-block align-top" alt="Func">
+                            MathPlot
+                        </a>
+                     </router-link>
                 </b-col>
                 <b-col cols="10">
                     <div class="d-flex justify-content-center">
@@ -96,6 +100,7 @@
                                     Female
                                 </label>
                             </div>
+                            <input type="file" @change="onFileChange" />
                         </div>
                     </div>
                 </div>
@@ -160,7 +165,7 @@ export default{
     data(){
         return{
             Id: uuid.v1(),
-            logn:  'maksim',  //sessionStorage.getItem(lg),
+            logn:  sessionStorage.getItem(lg),
             FirstName : "",
             LastName: "",
             Login: "",
@@ -168,7 +173,8 @@ export default{
             Email: null,
             Phone: null,
             Password: "",
-            autorize: true,//sessionStorage.getItem(tokenKey) === null ? false:true,
+            file: null,
+            autorize: sessionStorage.getItem(tokenKey) === null ? false:true,
             linksgraf:[
                 {title:'Логистическое Отображение',url:'/MappLogistic'},
                 {title:'Отображение Синус', url: '/MappSinus'},
@@ -283,25 +289,14 @@ export default{
                 console.log("Error: ", response.status, data.errorText);
             }
         },
-        async getLogin(){
-             const token = sessionStorage.getItem(tokenKey);
-             const response = await fetch("http://localhost:56063/api/user/getlogin",{
-                method: "GET",
-                headers: {"Accept": "appication/json",
-                        "Authorization": "Bearer " + token}
-            });
-            if (response.ok === true) {
-                 
-                const data = await response.json();
-                console.log(data)
-            }
-            else
-                console.log("Status: ", response.status);
-        },
         logouts(){
             sessionStorage.removeItem(tokenKey);
+            sessionStorage.removeItem(lg);
             this.autorize = false;
             window.location.reload();
+        },
+        onFileChange(e) {
+            this.file = e.target.files[0];
         }
 
     }

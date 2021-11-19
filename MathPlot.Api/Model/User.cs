@@ -23,6 +23,7 @@ namespace MathPlot.Api.Model
         public long Phone { get; set; }
         [Required(ErrorMessage = "Укажите пароль")]
         public string Password { get; set; }
+        public string ImagePath { get; set; }
 
         public List<Comment> Comments = new List<Comment>();
 

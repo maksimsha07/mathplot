@@ -26,10 +26,10 @@ namespace MathPlot.Api.Controllers
             return await db.Users.ToListAsync();
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User>> Get(Guid id)
+        [HttpGet("{login}")]
+        public async Task<ActionResult<User>> Get(string login)
         {
-            User user = await db.Users.FirstOrDefaultAsync(x => x.Id == id);
+            User user = await db.Users.FirstOrDefaultAsync(x => x.Login == login);
             if (user == null)
                 return NotFound();
             return new ObjectResult(user);
@@ -37,6 +37,7 @@ namespace MathPlot.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> Post(User user)
         {
+            
             User userl = await db.Users.FirstOrDefaultAsync(x => x.Login == user.Login);
             if (userl != null)
             {
@@ -46,22 +47,30 @@ namespace MathPlot.Api.Controllers
             {
                 ModelState.AddModelError("Login", "Недопустимый логин - admin");
             }
-
+            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             db.Users.Add(user);
             await db.SaveChangesAsync();
-            return Ok(user);
+            return Ok();
         }
-        [Authorize]
-        [HttpGet("{token}")]
-        public IActionResult GetLogin(string token)
+        [HttpPut]
+        public async Task<ActionResult<User>> Put(User user)
         {
-            return Ok(User.Identity.Name);
+            if (user == null)
+            {
+                return BadRequest();
+            }
+            if (!db.Users.Any(x => x.Id == user.Id))
+            {
+                return NotFound();
+            }
+
+            db.Update(user);
+            await db.SaveChangesAsync();
+                return Ok(user);
         }
-
-
     }
 }
