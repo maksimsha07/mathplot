@@ -4,16 +4,17 @@
         <b-container fluid style="background-color:RGB(178, 34, 34)">
             <b-row>
                 <b-col>
-                     <router-link
-                                :to="{name: 'home'}"
-                            >     
-                        <a href="to" style="margin-left: 5px">
-                            <img src="../../assets/function.png" width="30" height="30" class="d-inline-block align-top" alt="Func">
-                            MathPlot
-                        </a>
-                     </router-link>
+                    <router-link
+                        :to="{name: 'home'}"
+                    > 
+                    <b-navbar-brand href="to" style="margin-left: 5px">
+                        
+                    <img src="../../assets/function.png" width="30" height="30" class="d-inline-block align-top" alt="Func">
+                        MathPlot    
+                    </b-navbar-brand>
+                    </router-link>
                 </b-col>
-                <b-col cols="10">
+                <b-col cols="8">
                     <div class="d-flex justify-content-center">
                         <b-dropdown text="Графики" variant="link">
                             <router-link
@@ -38,20 +39,26 @@
                     </div>
                 </b-col>
                 <b-col>
-                    <div class="d-flex justify-content-left">
-                        <div v-if="autorize === false" class="d-flex">                  
+                    <div style=" display: flex;">
+                        <div v-if="autorize === false" id="UserNotNull">                  
                             <b-button @click="$bvModal.show('registrationsModal')" type="button" id="buttonSing" variant="secondary">Sing up</b-button>
                             <b-button @click="$bvModal.show('authModal')" type="button" variant="secondary" style="margin: 0px 5px 0px 5px">Sing in</b-button>
                         </div>
-                        <div v-if="autorize === true" class="d-flex">                  
-                            <b-button type ="submit" variant="secondary" v-on:click="logouts">Logout</b-button>
-                            <b-nav-item-dropdown right style="list-style-type: none">
+                        <div v-if="User != null" id="UserNotNull">                  
+                            <b-nav-item-dropdown right split style="list-style-type: none">
+                            <template #button-content>
+                                <b-img :src="require('../../UserImages/'+User['login']+'/'+User['imagePath'])" rounded="circle" v-bind="mainProps" v-if="User['imagePath'] != null"></b-img>
+                                <b-img v-bind="defaultProps" rounded="circle" v-if="User['imagePath'] == null" ></b-img>
+                            </template>
+
                             <router-link
                                 tag="li"
                                 :to="{name: 'ProfileUser', params:{login: logn}}"
                             >                      
                                 <b-dropdown-item href="to">Профиль</b-dropdown-item>
                             </router-link>
+                            <b-dropdown-divider></b-dropdown-divider>
+                            <b-dropdown-item v-on:click="logouts">Выйти</b-dropdown-item>
                             </b-nav-item-dropdown>
                         </div>
                     </div>
@@ -100,7 +107,7 @@
                                     Female
                                 </label>
                             </div>
-                            <input type="file" @change="onFileChange" />
+                            <input type="file" @change="onFileChange"/>
                         </div>
                     </div>
                 </div>
@@ -139,6 +146,7 @@
         hide-footer
         >
          <div class="container overflow-hidden">
+             <div id="errorsLog" class="alert alert-danger" style="display:none;"></div>
                 <form id="authForm">
                     <div class="form-group">
                         <label for="authInputEmail">Login</label>
@@ -174,6 +182,9 @@ export default{
             Phone: null,
             Password: "",
             file: null,
+            User: null,
+            mainProps: {width: 20, height: 20},
+            defaultProps: { blank: true, blankColor: '#777', width: 20, height: 20 },
             autorize: sessionStorage.getItem(tokenKey) === null ? false:true,
             linksgraf:[
                 {title:'Логистическое Отображение',url:'/MappLogistic'},
@@ -188,16 +199,21 @@ export default{
             ]
         }
     },
+    mounted(){
+        if(this.autorize){
+            this.GetUsers()
+        }
+    },
     methods:
     {
         async GetUsers(){
-            const response = await fetch("http://localhost:56063/api/user",
+            const response = await fetch("http://localhost:56063/api/user/" + sessionStorage.getItem("login"),
             {
                 method: "GET",
                 headers: {"Accept": "application/json"}
             });
             if(response.status >=200 && response.status <= 299){
-                console.log(response.json());
+                this.User = await response.json()
             }
             else{
                 console.log(response.status, response.statusText);
@@ -215,51 +231,68 @@ export default{
                     Login: this.Login,
                     Genre: this.Genre == "true" ? true : false,
                     Email: this.Email,
-                    Phone: this.Phone == null ? null :Number(this.Phone),
-                    Password: this.Password
+                    Phone: (this.Phone == null || this.Phone == "") ? null :Number(this.Phone),
+                    Password: this.Password,
+                    ImagePath: null
                })
            });
            if(response.ok === true){
-               console.log(response.json());
+               console.log("ok");
+                if(this.file != null){
+                    let formdata = new FormData()
+                    formdata.append('file',this.file)
+                    formdata.append('login',this.Login)
+                    console.log(formdata['file'],formdata['login'])
+                    const response = await fetch("http://localhost:56063/api/UserImage", {
+                        method: "PUT",
+                        body: formdata
+                    });
+                    if(response.status >=200 && response.status <= 299){
+                        this.User = await response.json()
+                        console.log(this.User)
+                    }
+                    else{
+                        console.log(response.status, response.statusText);
+                    }
+                }
            }
            else{
               const errorData = await response.json();             
-              console.log("errors",errorData);
               this.clearBox("errors");
               if(errorData.errors){
                   if(errorData.errors["Login"]){
-                      this.addError(errorData.errors["Login"]);
+                      this.addError(errorData.errors["Login"],"errors");
                   }
                    if(errorData.errors["FirstName"]){
-                      this.addError(errorData.errors["FirstName"]);
+                      this.addError(errorData.errors["FirstName"],"errors");
                   }
                    if(errorData.errors["LastName"]){
-                      this.addError(errorData.errors["LastName"]);
+                      this.addError(errorData.errors["LastName"],"errors");
                   }
                  if(errorData.errors["Password"]){
-                        this.addError(errorData.errors["Password"]);
+                        this.addError(errorData.errors["Password"],"errors");
                    }                  
               }
               if(errorData["Login"]){
-                 this.addError(errorData["Login"]);
+                 this.addError(errorData["Login"],"errors");
               }
               if(errorData["FirstName"]){
-                 this.addError(errorData["FirstName"]);
+                 this.addError(errorData["FirstName"],"errors");
               }
               if(errorData["LastName"]){
-                 this.addError(errorData["LastName"]);
+                 this.addError(errorData["LastName"],"errors");
               }
               if(errorData["Password"]){
-                 this.addError(errorData["Password"]);
+                 this.addError(errorData["Password"],"errors");
               }
               document.getElementById("errors").style.display = "block";
            }
         },
-        addError(errors) {
+        addError(errors,elementid) {
             errors.forEach(error => {
                 const p = document.createElement("p");
                 p.append(error);
-                document.getElementById("errors").append(p);
+                document.getElementById(elementid).append(p);
             });
         },
         clearBox(elementID)
@@ -278,16 +311,21 @@ export default{
                     password: this.Password
                })
             });
-            console.log(this.Login +" " + this.Password)
-            const data = await response.json();
-            if(response.ok === true){
+            if(response.ok === true){   
+                const data = await response.json();
                 sessionStorage.setItem(tokenKey,data.access_token);
                 sessionStorage.setItem(lg,this.Login);
-                 window.location.reload();
+                window.location.reload();
             }
             else{
-                console.log("Error: ", response.status, data.errorText);
-            }
+                const errorData = await response.json();             
+                this.clearBox("errorsLog");
+                if(errorData["Pass"]){
+                    this.addError(errorData["Pass"],"errorsLog");
+                }
+                document.getElementById("errorsLog").style.display = "block";
+           }
+            
         },
         logouts(){
             sessionStorage.removeItem(tokenKey);
@@ -302,3 +340,9 @@ export default{
     }
 }
 </script>
+
+<style>
+#UserNotNull{
+    margin-left: auto;
+}
+</style>

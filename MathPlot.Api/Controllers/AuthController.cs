@@ -1,6 +1,7 @@
 ﻿using MathPlot.Api.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -21,28 +22,34 @@ namespace MathPlot.Api.Controllers
 
         }
         [HttpPost]
-        public IActionResult Login(Login u)
+        async public Task<ActionResult<List<string>>> Login(Login u)
         {
-            var user = AuthenticateUser(u.login, u.password);
-            if (user != null)
+            var user = await db.Users.SingleOrDefaultAsync(x => x.Login == u.login && x.Password == u.password);
+            if(user == null)
             {
-                var now = DateTime.UtcNow;
-
-                var jwt = new JwtSecurityToken(
-                    issuer: AuthOptions.ISSUER,
-                    audience: AuthOptions.AUDIENCE,
-                    notBefore: now,
-                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-                var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-                var response = new
-                {
-                    access_token = encodedJwt,
-                    login = user.Login
-                };
-                return Ok(response);
+                ModelState.AddModelError("Pass", "Неверный логин или пароль");
             }
-            else return Unauthorized();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var now = DateTime.UtcNow;
+
+            var jwt = new JwtSecurityToken(
+                issuer: AuthOptions.ISSUER,
+                audience: AuthOptions.AUDIENCE,
+                notBefore: now,
+                expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+                signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+            var response = new
+            {
+                access_token = encodedJwt,
+                login = user.Login,
+                imagePath = user.ImagePath
+            };
+            return Ok(response);
+            
         }
 
         private User AuthenticateUser(string login,string password)

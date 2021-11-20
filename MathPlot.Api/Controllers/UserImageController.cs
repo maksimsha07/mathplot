@@ -24,7 +24,7 @@ namespace MathPlot.Api.Controllers
         {
             string login = info.login;
             IFormFile file = info.file;
-            string mainpath = "C:\\Users\\Admin\\source\\repos\\MathPlot\\MathPlot\\mathplot.ui\\User";
+            string mainpath = "C:\\Users\\Admin\\source\\repos\\MathPlot\\MathPlot\\mathplot.ui\\src\\UserImages";
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -39,7 +39,7 @@ namespace MathPlot.Api.Controllers
                 foreach (string folder in Directory.GetDirectories(mainpath + "\\" + login))
                 {
                     Directory.Delete(folder, true);
-                }
+                }   
             }
             using (var fileStream = new FileStream(mainpath + "\\" + login + "\\" + file.FileName, FileMode.Create))
             {

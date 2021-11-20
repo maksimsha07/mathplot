@@ -179,7 +179,7 @@ export default{
         return{
             Comment: "" ,
             pageName: "BifurcationTheory",
-            autorize: sessionStorage.getItem("accessToken") === null ? false:true      
+            autorize: sessionStorage.getItem("accessToken") === null ? false:true,     
         }
     },
     methods:{

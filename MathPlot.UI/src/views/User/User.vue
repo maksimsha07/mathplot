@@ -30,7 +30,12 @@
                </form>
             </b-col>
             <b-col cols="3">
-                <img :src="images.sample" alt="Image 3">
+                <b-img :src="require('../../UserImages/'+User['login']+'/'+User['imagePath'])"
+                 rounded="circle" 
+                 v-bind="mainProps" 
+                 style="margin-top: 90px " 
+                 v-if="User['imagePath'] != null"></b-img>
+                <b-img v-bind="defaultProps" rounded="circle" v-if="User['imagePath'] == null"  style="margin-top: 90px "></b-img>
             </b-col>
         </b-row>
     </b-container>
@@ -43,13 +48,13 @@ export default {
             User: null,
             newPassword : "",
             file: null,
-            images:{
-                sample: this.User == null? null : require('../../UserImages/'+this.User["login"]+'/'+this.User["imagePath"])
-            }
+            mainProps: {width: 200, height: 200},
+             defaultProps: { blank: true, blankColor: '#777', width: 200, height: 200 }
         }
     },
     mounted(){
         this.GetUsers()
+        console.log(this.User)
     },
     methods:{
         async GetUsers(){
@@ -82,7 +87,7 @@ export default {
                     Genre: this.User['genre'],
                     Email: this.User['email'],
                     Phone: this.User['phone'],
-                    Password: this.newPassword,
+                    Password: this.newPassword == ""?this.User['password']:this.newPassword ,
                     ImagePath: null
                 })
             });
