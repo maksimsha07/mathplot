@@ -94,7 +94,6 @@ export default{
            this.x.push((i).toFixed(2)) 
            this.y.push(this.f(i))          
         }
-        console.log(typeof this.y[5])
           this.datacollection = {
           labels: this.x,
           datasets: [
@@ -158,7 +157,6 @@ export default{
         }
       },
       chartLyapunov(){
-          const start= new Date().getTime();
           this.rb = []
           for (let i = -1; i < this.rMax; i = i+0.001) {
             this.rb.push(i.toFixed(3))           
@@ -175,8 +173,6 @@ export default{
               }
               summ.push(sum/this.rb.length)
           }
-          const end = new Date().getTime();
-          console.log(end-start);
            this.datacollectionl = {
           labels: this.rb,
           datasets: [
@@ -229,7 +225,6 @@ export default{
            });
            if(response.ok === true){
                console.log(response.json());
-               console.log(Number(this.kofr) + typeof(Number(this.kofr)))
            }          
         }
     }

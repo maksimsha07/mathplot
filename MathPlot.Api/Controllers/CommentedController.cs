@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MathPlot.Api.Entity;
 
 namespace MathPlot.Api.Controllers
 {
@@ -20,9 +21,14 @@ namespace MathPlot.Api.Controllers
         }
 
         [HttpGet("{name}")]
-        public async Task<List<string>> Get(string name)
+        public async Task<List<Comments>> Get(string name)
         {
-            var commenst = await db.Comments.Where(p => p.page.name == name).Select(p => p.user.Login+":"+ p.commented).ToListAsync();
+            var commenst = await db.Comments.Where(p => p.page.name == name).Select(p => new Comments
+            {
+                login = p.user.Login,
+                imagePath = p.user.ImagePath,
+                comment = p.commented
+            }).ToListAsync();
             if (commenst == null)
             {
                 return null;

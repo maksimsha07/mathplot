@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using MathPlot.Api.Entity;
 
 namespace MathPlot.Api.Controllers
 {
@@ -32,7 +33,7 @@ namespace MathPlot.Api.Controllers
             User user = db.Users.FirstOrDefault(x => x.Login == login);
             if (!Directory.Exists(mainpath + "\\" +login))
             {
-                Directory.CreateDirectory(mainpath + "\\" + login);
+                Directory.CreateDirectory(mainpath + "\\" + login); 
             }
             if(user.ImagePath != null)
             {

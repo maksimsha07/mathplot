@@ -33,7 +33,7 @@
                 <div class="small">
                     <line-chart :chart-data="datacollection" :options="chartOptions" ref='chart'/>                  
                     <b-button v-if="datacollection != null"  type="button" variant="secondary" v-on:click="downloadChartPng('chart')">Скачать</b-button>
-                    <b-button v-if="datacollection != null" type="button" variant="secondary" style="margin-left: 5px">Сохранить</b-button>
+                    <b-button v-if="datacollection != null" type="button" variant="secondary" style="margin-left: 5px" v-on:click="paintmapp('chart')">Сохранить</b-button>
                 </div>
                 <div class="small" v-if="bifur">
                     <scatter-chart :chart-data="datacollectionb" id="chartb" ref='chartb'/>
@@ -163,7 +163,6 @@ export default{
         }
       },
       chartLyapunov(){
-          const start= new Date().getTime();
           this.rb = []
           for (let i = this.rmin; i < this.rMax; i = i+0.01) {
             this.rb.push(i.toFixed(2))           
@@ -180,10 +179,6 @@ export default{
               }
               summ.push(sum/this.rb.length)
           }
-          console.log(xl)
-          console.log(xll)
-          const end = new Date().getTime();
-          console.log(end-start);
            this.datacollectionl = {
           labels: this.rb,
           datasets: [
@@ -230,23 +225,33 @@ export default{
         link.download = "my-image-name.png";
         link.click();
       },
-      async paintmapp(){
+      async paintmapp(ref){
+          const component = this.$refs[ref] 
+            const canvas = component.$refs.canvas
+            var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+            var blobBin = atob(image.split(',')[1]);
+            var array = [];
+            for(var i = 0; i < blobBin.length; i++) {
+                array.push(blobBin.charCodeAt(i));
+            }
+            var file=new File([new Uint8Array(array)],"my-image-name.png",{type: 'image/png'});
+            let formdata = new FormData()
+            formdata.append('r',this.r)
+            formdata.append('bifur',this.bifur)
+            formdata.append('pokazlapuniva',this.pokazlapuniva)
+            formdata.append('login',sessionStorage.getItem("login"))
+            formdata.append('file',file)
            const response = await fetch("http://localhost:56063/api/mappingplank",
            {
                method: "POST",
-               headers: {"Accept": "application/json", "Content-Type": "application/json"},
-               body:JSON.stringify({
-                    r: Number(this.kofr),
-                    lestlameri: this.lestlameri,
-                    bifur: this.bifur,
-                    pokazlapuniva: this.pokazlapuniva,
-                    login: sessionStorage.getItem("login") === null ? null:sessionStorage.getItem("login"),
-               })
+               body: formdata
            });
            if(response.ok === true){
                console.log(response.json());
-               console.log(Number(this.kofr) + typeof(Number(this.kofr)))
-           }          
+           }      
+           else{
+                console.log(response.status, response.statusText);
+            }    
         }
     }
   

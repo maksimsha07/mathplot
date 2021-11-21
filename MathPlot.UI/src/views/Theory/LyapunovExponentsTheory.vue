@@ -120,7 +120,7 @@
                 <form id="commentForm">
                     <div v-if ="autorize === true" class="form-group row">
                         <div class="form-group col-md-10">
-                            <input type="text" class="form-control" v-model="Comment">
+                            <input type="text" class="form-control" v-model="newComment">
                         </div>
                         <div class="form-group col-md-2">
                             <b-button type="button" v-on:click="addComment" form="commentForm" variant="secondary">Submit</b-button>
@@ -130,7 +130,18 @@
                         <p>Авторизируйтесь, чтобы оствлять комментарии</p>
                     </div>
                 </form>
-                <div id="comments"></div> 
+                <div v-if="comments != null">
+                    <div  style="display: inline" id="comments">
+                        <div style="display: flex;" v-for="comment in  comments" :key="comment.id">
+                            <b-img :src="require('../../UserImages/'+comment.login+'/'+comment.imagePath)"
+                            rounded="circle" 
+                            v-bind="mainProps" 
+                            v-if="comment.imagePath != null"></b-img>
+                            <b-img v-bind="defaultProps" rounded="circle" v-if="comment.imagePath == null"></b-img>
+                            <p>{{comment.login}}:{{comment.comment}}</p>
+                        </div>
+                    </div>
+                </div> 
             </b-col>
             <b-col></b-col>
         </b-row>
@@ -141,9 +152,12 @@
 export default{
      data(){
         return{
-            Comment: "" ,
+            newComment: "" ,
             pageName: "LyapunovExponentsTheory",
-            autorize: sessionStorage.getItem("accessToken") === null ? false:true      
+            autorize: sessionStorage.getItem("accessToken") === null ? false:true,
+            comments: null,
+            mainProps: {width: 40, height: 40},
+            defaultProps: { blank: true, blankColor: '#777', width: 40, height: 40 }
         }
     },
     methods:{
@@ -155,14 +169,12 @@ export default{
                body: JSON.stringify({
                    userName: sessionStorage.getItem("login"),
                    pageName: this.pageName,
-                   commentText: this.Comment
+                   commentText: this.newComment
                })
            });
            if(response.ok === true){
                console.log(response.json());
-               const p = document.createElement("p");
-                p.append(sessionStorage.getItem("login")+":"+ this.Comment);
-                document.getElementById("comments").append(p);
+               this.addCommentInDOM()
            }
            else{
                 const errorData = await response.json();             
@@ -183,21 +195,7 @@ export default{
             }
         },
         async addCommentInDOM(){
-            const comments = await this.getComments();
-            console.log(comments);
-            this.clearBox("comments");           
-            comments.forEach(comment => {
-                const p = document.createElement("p");
-                p.append(comment);
-                document.getElementById("comments").append(p);
-            });
-        },
-        clearBox(elementID)
-        {
-            var div = document.getElementById(elementID);
-            while(div.firstChild){
-                div.removeChild(div.firstChild);
-             }
+            this.comments = await this.getComments();           
         }
     },
     beforeMount(){

@@ -1,3 +1,4 @@
+using MathPlot.Api.Entity;
 using MathPlot.Api.Model;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;

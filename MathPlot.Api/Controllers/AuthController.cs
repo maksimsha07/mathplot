@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
+using MathPlot.Api.Entity;
 
 namespace MathPlot.Api.Controllers
 {
@@ -22,7 +23,7 @@ namespace MathPlot.Api.Controllers
 
         }
         [HttpPost]
-        async public Task<ActionResult<List<string>>> Login(Login u)
+        public async Task<ActionResult<List<string>>> Login(Login u)
         {
             var user = await db.Users.SingleOrDefaultAsync(x => x.Login == u.login && x.Password == u.password);
             if(user == null)
@@ -50,11 +51,6 @@ namespace MathPlot.Api.Controllers
             };
             return Ok(response);
             
-        }
-
-        private User AuthenticateUser(string login,string password)
-        {
-            return db.Users.SingleOrDefault(x => x.Login == login && x.Password == password);
         }
     }
 }

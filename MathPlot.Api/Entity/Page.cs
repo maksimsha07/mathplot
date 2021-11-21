@@ -5,17 +5,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MathPlot.Api.Model
+namespace MathPlot.Api.Entity
 {
-    public class Comment
+    public class Page
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string commented { get; set; }
+        public string name { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+        public Page(){
+            Comments = new List<Comment>();
+        }
 
-        public Guid UserId { get; set; }
-        public User user { get; set; }
-        public int PageId { get; set; }
-        public Page page { get; set; }
     }
 }

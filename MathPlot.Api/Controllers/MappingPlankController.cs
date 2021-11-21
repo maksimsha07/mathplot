@@ -1,5 +1,6 @@
 ﻿using IronPython.Hosting;
 using MathPlot.Api.Model;
+using MathPlot.Api.Entity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -25,8 +26,10 @@ namespace MathPlot.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<MappingPlank>> Post(MappingFunctions mappingFunctions)
+        public async Task<ActionResult<MappingPlank>> Post([FromForm] MappingFunctionsFiles mappingFunctions)
         {
+            string login = mappingFunctions.login;
+            IFormFile file = mappingFunctions.file;
             string mainpath = "C:\\Users\\Admin\\source\\repos\\MathPlot\\MathPlot\\mathplot.ui\\Charts";
             if (!ModelState.IsValid)
             {
@@ -46,33 +49,30 @@ namespace MathPlot.Api.Controllers
                 {
                     Directory.CreateDirectory(mainpath + "\\" + mappingFunctions.login + "\\" + "mappingplank");
                 }
-
                 User user = await db.Users.FirstOrDefaultAsync(x => x.Login == mappingFunctions.login);
-                ProcessStartInfo start = new ProcessStartInfo();
-                start.FileName = "C:\\Users\\Admin\\source\\repos\\MathPlot\\MathPlot\\MathPlot.Api\\PythonScripts\\OneDimensionalMappings\\mappingSinus.py";
-                start.UseShellExecute = false;
-                start.RedirectStandardOutput = true;
-                using (Process process = Process.Start(start))
+                if (user.ImagePath != null)
                 {
-                    using (StreamReader reader = process.StandardOutput)
+                    foreach (string folder in Directory.GetDirectories(mainpath + "\\" + login+ "\\" + "mappingplank"))
                     {
-                        string result = reader.ReadToEnd();
-                        Console.Write(result);
+                        Directory.Delete(folder, true);
                     }
                 }
-                /*
+                Random rnd = new Random();
+                int value = rnd.Next(0, 1000);
+                using (var fileStream = new FileStream(mainpath + "\\" + login + "\\"  + "mappingplank"+ "\\" + file.FileName+ value.ToString(), FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
                 MappingPlank mappingPlank =  new MappingPlank
                 {
-                    r = r,
-                    lestlameri = lestlameri,
-                    bifur = bifur,
-                    pokazlapuniva = pokazlapuniva,
-                    path = (mainpath + "\\" + login + "\\" + "mappingplank"),
-                    user = await db.Users.FirstOrDefaultAsync(x => x.Login == login)
+                    r = mappingFunctions.r,
+                    bifur = mappingFunctions.bifur,
+                    pokazlapuniva = mappingFunctions.pokazlapuniva,
+                    path = file.FileName + value.ToString(),
+                    user = await db.Users.FirstOrDefaultAsync(x => x.Login == user.Login)
                 };
                 db.MappingPlanks.Add(mappingPlank);
                 await db.SaveChangesAsync();
-                */
                 return Ok();
             }
         }

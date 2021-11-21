@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MathPlot.Api.Model
+namespace MathPlot.Api.Entity
 {
    public class User
     {
@@ -30,6 +30,9 @@ namespace MathPlot.Api.Model
         public List<MappingPlank> MappingPlanks = new List<MappingPlank>();
 
         public List<MappingSinus> MappingSinuss = new List<MappingSinus>();
+        public List<MappingTwo> MappingTwos = new List<MappingTwo>();
+        public List<MappingLogistic> MappingLogistics = new List<MappingLogistic>();
+        public List<MappingGauss> MappingGausss = new List<MappingGauss>();
 
     }
 }
