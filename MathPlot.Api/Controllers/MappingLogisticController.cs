@@ -1,32 +1,32 @@
-﻿using MathPlot.Api.Model;
+﻿using MathPlot.Api.Entity;
+using MathPlot.Api.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using MathPlot.Api.Entity;
-using System.IO;
-using Microsoft.EntityFrameworkCore;
 
 namespace MathPlot.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MappingSinusController : ControllerBase
+    public class MappingLogisticController : ControllerBase
     {
         ApplicationDbContext db;
-        public MappingSinusController(ApplicationDbContext context)
+        public MappingLogisticController(ApplicationDbContext context)
         {
             db = context;
         }
 
         [HttpPost]
-        public async Task<ActionResult<MappingSinus>> Post([FromForm] MappingFunctionsFiles mappingFunctions)
+        public async Task<ActionResult<MappingLogistic>> Post([FromForm] MappingFunctionsFiles mappingFunctions)
         {
             string login = mappingFunctions.login;
             IFormFile file = mappingFunctions.file;
-            string mapping = "mappingSunis";
+            string mapping = "mappingLogistic";
             string mainpath = "C:\\Users\\Admin\\source\\repos\\MathPlot\\MathPlot\\mathplot.ui\\Charts";
             if (!ModelState.IsValid)
             {
@@ -60,7 +60,7 @@ namespace MathPlot.Api.Controllers
                 {
                     await file.CopyToAsync(fileStream);
                 }
-                MappingSinus mappingSinus = new MappingSinus
+                MappingLogistic mappingLogistic = new MappingLogistic
                 {
                     r = mappingFunctions.r,
                     bifur = mappingFunctions.bifur,
@@ -68,7 +68,7 @@ namespace MathPlot.Api.Controllers
                     path = value.ToString() + file.FileName,
                     user = await db.Users.FirstOrDefaultAsync(x => x.Login == user.Login)
                 };
-                db.MappingSinus.Add(mappingSinus);
+                db.mappingLogistics.Add(mappingLogistic);
                 await db.SaveChangesAsync();
                 return Ok();
             }

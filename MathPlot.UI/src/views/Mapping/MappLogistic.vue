@@ -30,14 +30,20 @@
                         <b-button type="button" form="mappingplank" variant="secondary" v-on:click="paintChart">Submit</b-button>
                     </div>
                 </b-form>
-                <div class="small">
-                    <line-chart :chart-data="datacollection" :options="chartOptions "/>
+               <div class="small">
+                    <line-chart :chart-data="datacollection" :options="chartOptions" ref='chart'/>                  
+                    <b-button v-if="datacollection != null"  type="button" variant="secondary" v-on:click="downloadChartPng('chart')">Скачать</b-button>
+                    <b-button v-if="datacollection != null && autorize" type="button" variant="secondary" style="margin-left: 5px" v-on:click="paintmapp('chart')">Сохранить</b-button>
                 </div>
                 <div class="small" v-if="bifur">
-                    <scatter-chart :chart-data="datacollectionb"/>
+                    <scatter-chart :chart-data="datacollectionb" id="chartb" ref='chartb'/>
+                    <b-button v-if="datacollectionb != null"  type="button" variant="secondary" v-on:click="downloadChartPng('chartb')">Скачать</b-button>
+                    <b-button v-if="datacollectionb != null && autorize" type="button" variant="secondary" style="margin-left: 5px" v-on:click="paintmapp('chartb')">Сохранить</b-button>
                 </div>
                 <div class="small" v-if="pokazlapuniva">
-                    <line-chart :chart-data="datacollectionl" :options="chartOptionsl"/>
+                    <line-chart :chart-data="datacollectionl" :options="chartOptionsl" ref='chartl'/>
+                    <b-button v-if="datacollectionl != null"  type="button" variant="secondary" v-on:click="downloadChartPng('chartl')">Скачать</b-button>
+                    <b-button v-if="datacollectionl != null && autorize" type="button" variant="secondary" style="margin-left: 5px" v-on:click="paintmapp('chartl')">Сохранить</b-button>
                 </div>
             </b-col>
             <b-col>               
@@ -72,7 +78,8 @@ export default{
             x: [],
             y: [],
             ly: [],
-            rb: []        
+            rb: [],
+            autorize: sessionStorage.getItem("login") === null ? false:true,          
         }
     },
     mounted () {
@@ -210,22 +217,33 @@ export default{
             this.chartLyapunov()
           }
       },
-      async paintmapp(){
-           const response = await fetch("http://localhost:56063/api/mappingplank",
+      async paintmapp(ref){
+          const component = this.$refs[ref] 
+            const canvas = component.$refs.canvas
+            var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+            var blobBin = atob(image.split(',')[1]);
+            var array = [];
+            for(var i = 0; i < blobBin.length; i++) {
+                array.push(blobBin.charCodeAt(i));
+            }
+            var file=new File([new Uint8Array(array)],"mappingLogistic.png",{type: 'image/png'});
+            let formdata = new FormData()
+            formdata.append('r',this.r)
+            formdata.append('bifur',this.bifur)
+            formdata.append('pokazlapuniva',this.pokazlapuniva)
+            formdata.append('login',sessionStorage.getItem("login"))
+            formdata.append('file',file)
+           const response = await fetch("http://localhost:56063/api/mappinglogistic",
            {
                method: "POST",
-               headers: {"Accept": "application/json", "Content-Type": "application/json"},
-               body:JSON.stringify({
-                    r: Number(this.kofr),
-                    lestlameri: this.lestlameri,
-                    bifur: this.bifur,
-                    pokazlapuniva: this.pokazlapuniva,
-                    login: sessionStorage.getItem("login") === null ? null:sessionStorage.getItem("login"),
-               })
+               body: formdata
            });
            if(response.ok === true){
                console.log(response.json());
-           }          
+           }      
+           else{
+                console.log(response.status, response.statusText);
+            }    
         }
     }
   

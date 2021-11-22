@@ -49,17 +49,21 @@ namespace MathPlot.Api.Controllers
                 {
                     Directory.CreateDirectory(mainpath + "\\" + mappingFunctions.login + "\\" + "mappingplank");
                 }
-                User user = await db.Users.FirstOrDefaultAsync(x => x.Login == mappingFunctions.login);
-                if (user.ImagePath != null)
+                User user = await db.Users.FirstOrDefaultAsync(x => x.Login == login);
+                var mp = await db.MappingPlanks.Where(x => x.user == user).ToListAsync();
+                int count = mp.Count();
+                if (count >10)
                 {
-                    foreach (string folder in Directory.GetDirectories(mainpath + "\\" + login+ "\\" + "mappingplank"))
+                    if ((System.IO.File.Exists(mainpath + "\\" + mappingFunctions.login + "\\" + "mappingplank" +"\\" + mp[0].path)))
                     {
-                        Directory.Delete(folder, true);
+                        System.IO.File.Delete((mainpath + "\\" + mappingFunctions.login + "\\" + "mappingplank" + "\\" + mp[0].path));
                     }
+                    db.MappingPlanks.Remove(mp[0]);
+                    await db.SaveChangesAsync();
                 }
                 Random rnd = new Random();
                 int value = rnd.Next(0, 1000);
-                using (var fileStream = new FileStream(mainpath + "\\" + login + "\\"  + "mappingplank"+ "\\" + file.FileName+ value.ToString(), FileMode.Create))
+                using (var fileStream = new FileStream(mainpath + "\\" + login + "\\"  + "mappingplank"+ "\\" + value.ToString()+ file.FileName, FileMode.Create))
                 {
                     await file.CopyToAsync(fileStream);
                 }
@@ -68,8 +72,8 @@ namespace MathPlot.Api.Controllers
                     r = mappingFunctions.r,
                     bifur = mappingFunctions.bifur,
                     pokazlapuniva = mappingFunctions.pokazlapuniva,
-                    path = file.FileName + value.ToString(),
-                    user = await db.Users.FirstOrDefaultAsync(x => x.Login == user.Login)
+                    path = value.ToString() + file.FileName,
+                    user = await db.Users.FirstOrDefaultAsync(x => x.Login == login)
                 };
                 db.MappingPlanks.Add(mappingPlank);
                 await db.SaveChangesAsync();
