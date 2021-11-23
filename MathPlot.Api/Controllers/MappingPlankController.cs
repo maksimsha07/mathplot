@@ -54,9 +54,10 @@ namespace MathPlot.Api.Controllers
                 int count = mp.Count();
                 if (count >10)
                 {
-                    if ((System.IO.File.Exists(mainpath + "\\" + mappingFunctions.login + "\\" + "mappingplank" +"\\" + mp[0].path)))
+                    string deletepath = mainpath + "\\" + mappingFunctions.login + "\\" + "mappingplank" + "\\" + mp[0].path;
+                    if ((System.IO.File.Exists(deletepath)))
                     {
-                        System.IO.File.Delete((mainpath + "\\" + mappingFunctions.login + "\\" + "mappingplank" + "\\" + mp[0].path));
+                        System.IO.File.Delete((deletepath));
                     }
                     db.MappingPlanks.Remove(mp[0]);
                     await db.SaveChangesAsync();

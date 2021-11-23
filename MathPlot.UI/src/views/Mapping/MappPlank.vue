@@ -7,13 +7,9 @@
                 <h1>Отображение Планка</h1>
                 <b-form id="mappingplank">
                     <div class="form-group row" id="modalrowsize">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-12">
                             <label for="r">Значение r в диапазоне (0;7)</label>
                             <b-form-input type="number" size="sx-2" id="r" min="0" max="7" v-model="r"></b-form-input>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="lameria">Построить с лестницей Ламерея</label>
-                            <b-form-checkbox id="lameria" v-model="lestlameri"></b-form-checkbox>
                         </div>
                     </div>
                     <div class="form-group row" id="modalrowsize">
@@ -67,7 +63,6 @@ export default{
             rmin: 1,
             xMax: 5,
             xMin: 0,
-            lestlameri: false,
             bifur: false,
             pokazlapuniva: false,
             datacollection: null,

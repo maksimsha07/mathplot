@@ -46,13 +46,18 @@ namespace MathPlot.Api.Controllers
                 {
                     Directory.CreateDirectory(mainpath + "\\" + mappingFunctions.login + "\\" + mapping);
                 }
-                User user = await db.Users.FirstOrDefaultAsync(x => x.Login == mappingFunctions.login);
-                if (user.ImagePath != null)
+                User user = await db.Users.FirstOrDefaultAsync(x => x.Login == login);
+                var mp = await db.mappingTwos.Where(x => x.user == user).ToListAsync();
+                int count = mp.Count();
+                if (count > 10)
                 {
-                    foreach (string folder in Directory.GetDirectories(mainpath + "\\" + login + "\\" + mapping))
+                    string deletepath = mainpath + "\\" + mappingFunctions.login + "\\" + mapping + "\\" + mp[0].path;
+                    if ((System.IO.File.Exists(deletepath)))
                     {
-                        Directory.Delete(folder, true);
+                        System.IO.File.Delete((deletepath));
                     }
+                    db.mappingTwos.Remove(mp[0]);
+                    await db.SaveChangesAsync();
                 }
                 Random rnd = new Random();
                 int value = rnd.Next(0, 1000);

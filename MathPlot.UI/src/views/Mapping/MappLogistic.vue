@@ -7,13 +7,9 @@
                 <h1>Логистическое отображение</h1>
                 <b-form id="mappingplank">
                     <div class="form-group row" id="modalrowsize">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-12">
                             <label for="r">Значение r в диапазоне (0;4)</label>
                             <b-form-input type="number" size="sx-2" id="r" min="0" max="4" v-model="r"></b-form-input>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="lameria">Построить с лестницей Ламерея</label>
-                            <b-form-checkbox id="lameria" v-model="lestlameri"></b-form-checkbox>
                         </div>
                     </div>
                     <div class="form-group row" id="modalrowsize">
@@ -217,6 +213,15 @@ export default{
             this.chartLyapunov()
           }
       },
+     downloadChartPng(ref){
+        const component = this.$refs[ref] 
+        const canvas = component.$refs.canvas
+        var dataURL = canvas.toDataURL("image/png")
+        var link = document.createElement("a")
+        link.href = dataURL
+        link.download = "my-image-name.png";
+        link.click();
+      },
       async paintmapp(ref){
           const component = this.$refs[ref] 
             const canvas = component.$refs.canvas
@@ -239,7 +244,7 @@ export default{
                body: formdata
            });
            if(response.ok === true){
-               console.log(response.json());
+               console.log(response);
            }      
            else{
                 console.log(response.status, response.statusText);

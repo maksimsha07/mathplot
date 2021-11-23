@@ -54,7 +54,6 @@ export default {
     },
     mounted(){
         this.GetUsers()
-        console.log(this.User)
     },
     methods:{
         async GetUsers(){
@@ -65,8 +64,6 @@ export default {
             });
             if(response.status >=200 && response.status <= 299){
                 this.User = await response.json()
-                console.log(this.User)
-                console.log(require('../../UserImages/'+this.User["login"]+'/'+this.User["imagePath"]))
             }
             else{
                 console.log(response.status, response.statusText);
