@@ -1,22 +1,19 @@
 <template>
 <div>
-    <header class="header">
-        <b-container fluid style="background-color:RGB(178, 34, 34)">
+    <header>
+        <b-container fluid class="header">
             <b-row>
-                <b-col>
+                <b-col cols="2">
                     <router-link
                         :to="{name: 'home'}"
-                    > 
-                    <b-navbar-brand href="to" style="margin-left: 5px">
-                        
-                    <img src="../../assets/function.png" width="30" height="30" class="d-inline-block align-top" alt="Func">
-                        MathPlot    
-                    </b-navbar-brand>
-                    </router-link>
+                    >                       
+                    <img src="../../assets/mainlogo.png" alt="Func" id="logo"> 
+                    <a href="to"><p id="logoname">MathPlot</p></a>
+                    </router-link>  
                 </b-col>
                 <b-col cols="8">
                     <div class="d-flex justify-content-center">
-                        <b-dropdown text="Графики" variant="link">
+                        <b-dropdown text="Графики" class="dropbutton">
                             <router-link
                             v-for="link in linksgraf"
                             :key="link.url"
@@ -26,7 +23,7 @@
                             <b-dropdown-item href="to" id="functionsLayouts">{{link.title}}</b-dropdown-item>
                             </router-link>
                         </b-dropdown>
-                        <b-dropdown text="Теория" variant="link" style="list-style-type: none">
+                        <b-dropdown text="Теория"  class="dropbutton">
                             <router-link
                             v-for="link in linkstheory"
                             :key="link.url"
@@ -38,11 +35,11 @@
                         </b-dropdown>
                     </div>
                 </b-col>
-                <b-col>
-                    <div style=" display: flex;">
-                        <div v-if="autorize === false" id="UserNotNull">                  
-                            <b-button @click="$bvModal.show('registrationsModal')" type="button" id="buttonSing" variant="secondary">Sing up</b-button>
-                            <b-button @click="$bvModal.show('authModal')" type="button" variant="secondary" style="margin: 0px 5px 0px 5px">Sing in</b-button>
+                <b-col cols="2">
+                    <div>
+                        <div v-if="autorize === false" id="UserNotNull" >                  
+                            <b-button @click="$bvModal.show('registrationsModal')" type="button" id="buttonSing" >Sing up</b-button>
+                            <b-button @click="$bvModal.show('authModal')" type="button" id="buttonSing" style="margin-left:5px">Sing in</b-button>
                         </div>
                         <div v-if="User != null" id="UserNotNull">                  
                             <b-nav-item-dropdown right split style="list-style-type: none">
@@ -56,6 +53,12 @@
                                 :to="{name: 'ProfileUser', params:{login: logn}}"
                             >                      
                                 <b-dropdown-item href="to">Профиль</b-dropdown-item>
+                            </router-link>
+                            <router-link
+                                tag="li"
+                                :to="{name: 'ChartsUser', params:{login: logn}}"
+                            >                      
+                                <b-dropdown-item href="to">Ваши графики</b-dropdown-item>
                             </router-link>
                             <b-dropdown-divider></b-dropdown-divider>
                             <b-dropdown-item v-on:click="logouts">Выйти</b-dropdown-item>
@@ -342,7 +345,46 @@ export default{
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif&display=swap');
 #UserNotNull{
     margin-left: auto;
+}
+.header{
+    position: absolute;
+}
+h1,h2,h3,h4,h5,img,p{
+    font-family: 'PT Serif', serif;
+}
+.dropbutton{
+    font-family: 'PT Serif', serif;
+}
+.b-dropdown > button,.b-dropdown > button:hover,.show > .btn-secondary.dropdown-toggle{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    top: 30px;
+}
+#buttonSing{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: solid white;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    margin-top: 30px;
+}
+#logo{
+    float: left;
+    width: 100px;
+    height: 100px;
+}
+#logoname{
+    position: relative;
+    font-size: 24px;
+    color: white;
+    top:8px
 }
 </style>

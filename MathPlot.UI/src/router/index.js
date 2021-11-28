@@ -11,7 +11,6 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      meta: {layout: 'Main'},
       component: () => import('../views/Home.vue')
     },
     {
@@ -81,10 +80,16 @@ export default new Router({
       component: ()=> import('../views/Theory/LyapunovExponentsTheory.vue')
     },
     {
-      path: '/Profile/:login',
+      path: '/:login/Profile',
       name: 'ProfileUser',
       meta: {layout: 'Main'},
       component: ()=> import('../views/User/User.vue')
+    },
+    {
+      path: '/:login/Charts',
+      name: 'ChartsUser',
+      meta: {layout:'Main'},
+      component: ()=> import('../views/User/UserChart.vue')
     },
     {
       path: '*',
