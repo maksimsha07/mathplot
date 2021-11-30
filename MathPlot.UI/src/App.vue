@@ -12,6 +12,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'vue-datetime/dist/vue-datetime.css'
 import MainLayout from  '@/layouts/MainLayout'
 export default {
+  name: "App",
   computed:{
     layout(){
       return (this.$route.meta.layout || 'Main') + '-layout'

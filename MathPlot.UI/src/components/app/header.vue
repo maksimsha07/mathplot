@@ -7,7 +7,7 @@
                     <router-link
                         :to="{name: 'home'}"
                     >                       
-                    <img src="../../assets/mainlogo.png" alt="Func" id="logo"> 
+                    <img src="../../assets/mainlogo.png" alt="Func" id="logoHeader"> 
                     <a href="to"><p id="logoname">MathPlot</p></a>
                     </router-link>  
                 </b-col>
@@ -345,46 +345,7 @@ export default{
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=PT+Serif&display=swap');
 #UserNotNull{
     margin-left: auto;
-}
-.header{
-    position: absolute;
-}
-h1,h2,h3,h4,h5,img,p{
-    font-family: 'PT Serif', serif;
-}
-.dropbutton{
-    font-family: 'PT Serif', serif;
-}
-.b-dropdown > button,.b-dropdown > button:hover,.show > .btn-secondary.dropdown-toggle{
-    background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
-    top: 30px;
-}
-#buttonSing{
-    background-color: Transparent;
-    background-repeat:no-repeat;
-    border: solid white;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
-    margin-top: 30px;
-}
-#logo{
-    float: left;
-    width: 100px;
-    height: 100px;
-}
-#logoname{
-    position: relative;
-    font-size: 24px;
-    color: white;
-    top:8px
 }
 </style>

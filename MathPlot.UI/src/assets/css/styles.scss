@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif&display=swap');
+@import "./variables.scss";
+
 #modalrowsize{
 	padding-top: 15px;
 }
@@ -5,10 +8,99 @@
 #buttonSing{
 	margin-right: 5px;
 }
-#functionsLayouts{
-	text-decoration: none;
-}
 a{
 	text-decoration: none;
 	margin: 5px;
+}
+p,a,h1,h2,h3,h4,h5,label{
+	font-family: 'PT Serif', serif;
+	color:white;
+}
+#mainInfo{
+    background: $maincolor;
+}
+#footer{
+	background: rgb(36, 34, 34);
+}
+.dropbutton{
+    font-family: 'PT Serif', serif;
+}
+.b-dropdown > button,.b-dropdown > button:hover,.show > .btn-secondary.dropdown-toggle{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    top: 30px;
+}
+#buttonSing{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: solid white;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    margin-top: 30px;
+}
+
+#cardNoMain{
+    height: 500x;
+    background: red;
+}
+
+#parentsCardOne{
+    height: 400px;
+    background: url("../mainCard.jpg") center no-repeat;
+}
+
+#parentsCardTwo{
+    height: 400px;
+    background: $maincolor;
+}
+
+#maintext{
+    font-size: $mainfontsize;
+}
+.header{
+    position: absolute;
+}
+#logoHeader{
+    float: left;
+    width: 100px;
+    height: 100px;
+}
+#logoFooter{
+    width: 100px;
+    height: 100px;
+}
+#logoname{
+    position: relative;
+    font-size: 24px;    
+    color: white;
+    top:8px
+}
+#mappingActiv{
+    background: white;
+    text-align: center;
+}
+#mappingActiv label, #mappingActiv h1{
+    color: black;
+}
+#mainMappingInfo{
+    width: 100%;
+    height: 100%;
+    background: url("../intro1.jpg") center no-repeat;
+    background-size: cover;
+}
+
+.mapp{
+    position: relative;
+    left: 25%;
+    width: 700px;
+    height: 700px;
+}
+
+#registrationsModal label,#registrationsModal h5,#authModal label,#authModal h5{
+    color: black;
 }

@@ -1,43 +1,48 @@
 <template>
-    <b-container fluid>
+    <b-container fluid id="mainMappingInfo" style="padding-top:100px">
         <b-row>
             <b-col>
             </b-col>
-            <b-col>
-                <h1>Логистическое отображение</h1>
-                <b-form id="mappingplank">
-                    <div class="form-group row" id="modalrowsize">
-                        <div class="form-group col-md-12">
-                            <label for="r">Значение r в диапазоне (0;4)</label>
-                            <b-form-input type="number" size="sx-2" id="r" min="0" max="4" v-model="r"></b-form-input>
+            <b-col cols="8" id="mappingActiv">
+                <div style="padding: 50px">
+                    <h1>Логистическое отображение</h1>
+                    <b-form id="mappingplank">
+                        <div class="form-group row" id="modalrowsize">
+                            <div class="form-group col-md-6">
+                                <label for="r">Значение r в диапазоне (0;4)</label>
+                                <b-form-input type="number" size="sx-2" id="r" min="0" max="4" v-model="r" style="width:60px; position: relative; left: 43%"></b-form-input>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="bifuraks">Построить бифуркационную диаграмму</label>
+                                <b-form-checkbox id="bifuraks" v-model="bifur"></b-form-checkbox>
+                                <label for="lapunov">Построить показатель Ляпунова</label>
+                                <b-form-checkbox id="lapunov" v-model="pokazlapuniva"></b-form-checkbox>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row" id="modalrowsize">
-                        <div class="form-group col-md-6">
-                            <label for="bifuraks">Построить бифуркационную диаграмму</label>
-                            <b-form-checkbox id="bifuraks" v-model="bifur"></b-form-checkbox>
+                        <div class="form-group row" id="modalrowsize">
+                            <div class="form-group col-md-5">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <b-button type="button" form="mappingplank" v-on:click="paintChart">Построить</b-button>
+                            </div>
+                            <div class="form-group col-md-5">
+                                
+                            </div>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="lapunov">Построить показатель Ляпунова</label>
-                            <b-form-checkbox id="lapunov" v-model="pokazlapuniva"></b-form-checkbox>
-                        </div>
-                    </div>
-                    <div class="form-group row" id="modalrowsize">
-                        <b-button type="button" form="mappingplank" variant="secondary" v-on:click="paintChart">Submit</b-button>
-                    </div>
-                </b-form>
-               <div class="small">
-                    <line-chart :chart-data="datacollection" :options="chartOptions" ref='chart'/>                  
+                    </b-form>
+                </div>
+               <div >
+                    <line-chart  class="mapp" id="chart" :chart-data="datacollection" :options="chartOptions" ref='chart'/>                  
                     <b-button v-if="datacollection != null"  type="button" variant="secondary" v-on:click="downloadChartPng('chart')">Скачать</b-button>
                     <b-button v-if="datacollection != null && autorize" type="button" variant="secondary" style="margin-left: 5px" v-on:click="paintmapp('chart')">Сохранить</b-button>
                 </div>
-                <div class="small" v-if="bifur">
-                    <scatter-chart :chart-data="datacollectionb" id="chartb" ref='chartb'/>
+                <div  v-if="bifur">
+                    <scatter-chart class="mapp" :chart-data="datacollectionb" :options="chartOptionsb" id="chartb" ref='chartb'/>
                     <b-button v-if="datacollectionb != null"  type="button" variant="secondary" v-on:click="downloadChartPng('chartb')">Скачать</b-button>
                     <b-button v-if="datacollectionb != null && autorize" type="button" variant="secondary" style="margin-left: 5px" v-on:click="paintmapp('chartb')">Сохранить</b-button>
                 </div>
-                <div class="small" v-if="pokazlapuniva">
-                    <line-chart :chart-data="datacollectionl" :options="chartOptionsl" ref='chartl'/>
+                <div  v-if="pokazlapuniva">
+                    <line-chart class="mapp" :chart-data="datacollectionl" :options="chartOptionsl" ref='chartl'/>
                     <b-button v-if="datacollectionl != null"  type="button" variant="secondary" v-on:click="downloadChartPng('chartl')">Скачать</b-button>
                     <b-button v-if="datacollectionl != null && autorize" type="button" variant="secondary" style="margin-left: 5px" v-on:click="paintmapp('chartl')">Сохранить</b-button>
                 </div>
@@ -71,6 +76,7 @@ export default{
             datacollectionl: null,
             chartOptions: null,
             chartOptionsl: null,
+            chartOptionsb: null,
             x: [],
             y: [],
             ly: [],
@@ -105,13 +111,13 @@ export default{
               data: this.y,
               fill: false,
               pointRadius: 0,
-               borderColor: 'rgb(139, 0, 0)'
+               borderColor: 'red'
             }, {
               label: 'y=x',
               data: this.x,
               fill: false,
               pointRadius: 0,
-              borderColor: 'rgb(0, 0, 0)'
+              borderColor: 'blue'
             }
           ]
         }
@@ -127,7 +133,31 @@ export default{
                     }
                     }
                 ]
+            },
+            plugins: {
+                zoom: {
+                    // Container for pan options
+                    pan: {
+                        // Boolean to enable panning
+                        enabled: true,
+
+                        // Panning directions. Remove the appropriate direction to disable 
+                        // Eg. 'y' would only allow panning in the y direction
+                        mode: 'xy'
+                    },
+
+                    // Container for zoom options
+                    zoom: {
+                        // Boolean to enable zooming
+                        enabled: true,
+
+                        // Zooming directions. Remove the appropriate direction to disable 
+                        // Eg. 'y' would only allow zooming in the y direction
+                        mode: 'xy',
+                    }
+                }
             }
+            
         }
       },
       chartBifur(){
@@ -158,6 +188,33 @@ export default{
                 pointRadius: 1
             }]
         }
+        this.chartOptionsb = {
+            responsive: true, 
+            maintainAspectRatio: false,
+                plugins: {
+                zoom: {
+                    // Container for pan options
+                    pan: {
+                        // Boolean to enable panning
+                        enabled: true,
+
+                        // Panning directions. Remove the appropriate direction to disable 
+                        // Eg. 'y' would only allow panning in the y direction
+                        mode: 'xy'
+                    },
+
+                    // Container for zoom options
+                    zoom: {
+                        // Boolean to enable zooming
+                        enabled: true,
+
+                        // Zooming directions. Remove the appropriate direction to disable 
+                        // Eg. 'y' would only allow zooming in the y direction
+                        mode: 'xy',
+                    }
+                }
+            }
+        }      
       },
       chartLyapunov(){
           this.rb = []
@@ -201,6 +258,29 @@ export default{
                 }
                 
                 }]
+            },
+            plugins: {
+                zoom: {
+                    // Container for pan options
+                    pan: {
+                        // Boolean to enable panning
+                        enabled: true,
+
+                        // Panning directions. Remove the appropriate direction to disable 
+                        // Eg. 'y' would only allow panning in the y direction
+                        mode: 'xy'
+                    },
+
+                    // Container for zoom options
+                    zoom: {
+                        // Boolean to enable zooming
+                        enabled: true,
+
+                        // Zooming directions. Remove the appropriate direction to disable 
+                        // Eg. 'y' would only allow zooming in the y direction
+                        mode: 'xy',
+                    }
+                }
             }
         }
       },
@@ -256,3 +336,6 @@ export default{
 
 </script>
 
+<style>
+
+</style>
