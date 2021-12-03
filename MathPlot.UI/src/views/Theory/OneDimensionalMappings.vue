@@ -1,8 +1,8 @@
 <template>
-    <b-container fluid>
+    <b-container fluid id="mainMappingInfoTheory">
         <b-row>
             <b-col></b-col>
-            <b-col cols="8">
+            <b-col cols="8" id="mainTheoryinfo">
                 <h1 class = "d-flex justify-content-center" >Одномерные точечные отображения</h1>
                 <h4>Общие свойства отображений</h4>
                 <p>Точечными отображениями принято называть раздел динамики, в котором изучаются сиистемы

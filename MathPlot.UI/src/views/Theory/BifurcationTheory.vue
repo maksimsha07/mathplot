@@ -1,8 +1,8 @@
 <template>
-     <b-container fluid>
+     <b-container fluid id="mainMappingInfoTheory">
         <b-row>
             <b-col></b-col>
-            <b-col cols="8">
+            <b-col cols="8" id="mainTheoryinfo">
                 <h4>Бифуркационные диаграммы</h4>
                 <p>
                     Одним из способов исследования отображений является построение <em>бифуркационной диаграммы</em>. Такая диаграмма демонстрирует,

@@ -21,7 +21,7 @@ namespace MathPlot.Api.Entity
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Некорректный адрес")]
         public string Email { get; set; }
         public long Phone { get; set; }
-        [Required(ErrorMessage = "Укажите пароль")]
+        [StringLength(20, MinimumLength = 8, ErrorMessage = "Пароль должен содержать больше 8 символов")]
         public string Password { get; set; }
         public string ImagePath { get; set; }
 

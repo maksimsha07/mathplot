@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using MathPlot.Api.Entity;
+using Microsoft.Extensions.Configuration;
 
 namespace MathPlot.Api.Controllers
 {
@@ -15,9 +16,12 @@ namespace MathPlot.Api.Controllers
     public class UserImageController : ControllerBase
     {
         ApplicationDbContext db;
-        public UserImageController(ApplicationDbContext context)
+        public IConfiguration Configuration { get; }
+        private string mainpath;
+        public UserImageController(ApplicationDbContext context, IConfiguration configuration)
         {
             db = context;
+            Configuration = configuration;
 
         }
         [HttpPut]
@@ -25,7 +29,7 @@ namespace MathPlot.Api.Controllers
         {
             string login = info.login;
             IFormFile file = info.file;
-            string mainpath = "C:\\Users\\Admin\\source\\repos\\MathPlot\\MathPlot\\mathplot.ui\\src\\UserImages";
+            mainpath = Configuration.GetSection("SaveImgPath").GetValue<string>("MainUserPath");
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

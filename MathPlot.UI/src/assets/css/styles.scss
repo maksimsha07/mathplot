@@ -92,6 +92,12 @@ p,a,h1,h2,h3,h4,h5,label{
     height: 100%;
     background: url("../intro1.jpg") center no-repeat;
     background-size: cover;
+    padding-top:100px;
+}
+
+#mainMappingInfoTheory{
+    background: $maincolor;
+    padding-top:100px;
 }
 
 .mapp{
@@ -103,4 +109,29 @@ p,a,h1,h2,h3,h4,h5,label{
 
 #registrationsModal label,#registrationsModal h5,#authModal label,#authModal h5{
     color: black;
+}
+
+#mainTheoryinfo{
+    background: white;
+}
+#mainTheoryinfo p,#mainTheoryinfo h4,#mainTheoryinfo a,#mainTheoryinfo h1{
+    color: black;
+}
+
+#userInfo{
+    background: $maincolor;
+    height: 900px;
+    width:100%;
+    padding-top:100px;
+}
+
+#userChartInfo{
+    padding-top:100px;
+    background: $maincolor;
+    text-align: center;
+    height: 100%;
+}
+
+#chartsMapp{
+    display: inline-block;
 }

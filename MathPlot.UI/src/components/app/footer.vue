@@ -76,7 +76,6 @@
 <style>
 #footerIcon{
   position: relative;
-  top:-15px;
   color: aqua;
   width: 25px;
   height: 25px;

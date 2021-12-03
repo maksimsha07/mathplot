@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using MathPlot.Api.Entity;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace MathPlot.Api.Controllers
 {
@@ -16,9 +17,12 @@ namespace MathPlot.Api.Controllers
     public class MappingSinusController : ControllerBase
     {
         ApplicationDbContext db;
-        public MappingSinusController(ApplicationDbContext context)
+        public IConfiguration Configuration { get; }
+        private string mainpath;
+        public MappingSinusController(ApplicationDbContext context, IConfiguration configuration)
         {
             db = context;
+            Configuration = configuration;
         }
 
         [HttpPost]
@@ -27,7 +31,7 @@ namespace MathPlot.Api.Controllers
             string login = mappingFunctions.login;
             IFormFile file = mappingFunctions.file;
             string mapping = "mappingSunis";
-            string mainpath = "C:\\Users\\Admin\\source\\repos\\MathPlot\\MathPlot\\mathplot.ui\\Charts";
+            mainpath = Configuration.GetSection("SaveImgPath").GetValue<string>("MainPath");
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

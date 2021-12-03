@@ -1,30 +1,35 @@
 <template>
-    <div v-if="datas != null">
-        <div style="display: flex;" v-for="data in datas[0]" :key="data.id">
+    <div v-if="datas != null" id="userChartInfo">
+        <h2>Отображение Планка</h2>
+        <div id="chartsMapp" v-for="data in datas[0]" :key="data.id">
             <div>
                 <b-img :src="require('../../UserCharts/'+login +'/'+ 'mappingplank'+'/'+data)"
                 v-bind="mainProps"></b-img>
             </div>
         </div>
-        <div style="display: flex;" v-for="data in  datas[1]" :key="data.id">
+        <h2>Отображение Гаусса</h2>
+        <div id="chartsMapp" v-for="data in  datas[1]" :key="data.id">
             <div>
                 <b-img :src="require('../../UserCharts/'+login +'/'+ 'mappingGauss'+'/'+data)" 
                 v-bind="mainProps"></b-img>
             </div>
         </div>
-        <div style="display: flex;" v-for="data in  datas[2]" :key="data.id">
+        <h2>Логистическое отображение</h2>
+        <div id="chartsMapp" v-for="data in  datas[2]" :key="data.id">
             <div>
                 <b-img :src="require('../../UserCharts/'+login +'/'+ 'mappingLogistic'+'/'+data)" 
                 v-bind="mainProps"></b-img>
             </div>
         </div>
-        <div style="display: flex;" v-for="data in  datas[3]" :key="data.id">
+        <h2>Двусторонее отображение</h2>
+        <div id="chartsMapp" v-for="data in  datas[3]" :key="data.id">
             <div>
                 <b-img :src="require('../../UserCharts/'+login +'/'+ 'mappingTwo'+'/'+data)"
                 v-bind="mainProps"></b-img>
             </div>
         </div>
-        <div style="display: flex;" v-for="data in  datas[4]" :key="data.id">
+        <h2>Отображение Синус</h2>
+        <div id="chartsMapp" v-for="data in  datas[4]" :key="data.id">
             <div>
                 <b-img :src="require('../../UserCharts/'+login +'/'+ 'mappingSunis'+'/'+data)"
                 v-bind="mainProps"></b-img>

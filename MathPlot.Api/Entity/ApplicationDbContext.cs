@@ -18,17 +18,7 @@ namespace MathPlot.Api.Entity
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<User>().HasData(new User
-            {
-                Id = Guid.NewGuid(),
-                FirstName = "Максим",
-                LastName = "Чешихин",
-                Login = "Maksim",
-                Genre = true,
-                Email = "deevzmak1234@mail.ru",
-                Phone = 89094352590,
-                Password = "qwertyuiop123"
-            });
+           
             builder.Entity<Page>().HasData(new Page
             {
                 Id = 1,

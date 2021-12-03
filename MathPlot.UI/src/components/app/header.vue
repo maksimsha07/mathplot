@@ -334,6 +334,7 @@ export default{
             sessionStorage.removeItem(tokenKey);
             sessionStorage.removeItem(lg);
             this.autorize = false;
+            this.$router.push({ name: 'home' });
             window.location.reload();
         },
         onFileChange(e) {
@@ -346,6 +347,7 @@ export default{
 
 <style>
 #UserNotNull{
-    margin-left: auto;
+    position: absolute;
+    right: 0;
 }
 </style>

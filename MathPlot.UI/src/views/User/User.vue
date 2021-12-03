@@ -1,5 +1,5 @@
 <template>
-    <b-container fluid>
+    <b-container fluid id="userInfo">
         <b-row v-if="User != null">
             <b-col cols="3">
             </b-col>

@@ -3,6 +3,7 @@ using MathPlot.Api.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,9 +17,12 @@ namespace MathPlot.Api.Controllers
     public class MappingLogisticController : ControllerBase
     {
         ApplicationDbContext db;
-        public MappingLogisticController(ApplicationDbContext context)
+        public IConfiguration Configuration { get; }
+        private string mainpath;
+        public MappingLogisticController(ApplicationDbContext context, IConfiguration configuration)
         {
             db = context;
+            Configuration = configuration;
         }
 
         [HttpPost]
@@ -27,7 +31,7 @@ namespace MathPlot.Api.Controllers
             string login = mappingFunctions.login;
             IFormFile file = mappingFunctions.file;
             string mapping = "mappingLogistic";
-            string mainpath = "C:\\Users\\Admin\\source\\repos\\MathPlot\\MathPlot\\mathplot.ui\\Charts";
+            mainpath = Configuration.GetSection("SaveImgPath").GetValue<string>("MainPath");
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

@@ -1,5 +1,5 @@
 <template>
-    <b-container fluid id="mainMappingInfo" style="padding-top:100px">
+    <b-container fluid id="mainMappingInfo">
         <b-row>
             <b-col>
             </b-col>

@@ -1,8 +1,8 @@
 <template>
-     <b-container fluid>
+     <b-container fluid id="mainMappingInfoTheory">
         <b-row>
             <b-col></b-col>
-            <b-col cols="8">
+            <b-col cols="8" id="mainTheoryinfo">
                 <h4>Показатель Ляпунова</h4>
                 <p>
                     Очень эффективным способом оценки «хаотичности» является рассмотрение такой величины 

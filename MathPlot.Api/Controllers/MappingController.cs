@@ -11,7 +11,7 @@ namespace MathPlot.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MappingController : ControllerBase
+    public class MappingController : ControllerBase 
     {
         ApplicationDbContext db;
         public MappingController(ApplicationDbContext context)

@@ -1,4 +1,4 @@
-﻿using IronPython.Hosting;
+﻿    using IronPython.Hosting;
 using MathPlot.Api.Model;
 using MathPlot.Api.Entity;
 using Microsoft.AspNetCore.Http;
@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace MathPlot.Api.Controllers
 {
@@ -19,9 +20,12 @@ namespace MathPlot.Api.Controllers
     public class MappingPlankController : ControllerBase
     {
         ApplicationDbContext db;
-        public MappingPlankController(ApplicationDbContext context)
+        public IConfiguration Configuration { get; }
+        private string mainpath;
+        public MappingPlankController(ApplicationDbContext context, IConfiguration configuration)
         {
             db = context;
+            Configuration = configuration;
 
         }
 
@@ -30,7 +34,7 @@ namespace MathPlot.Api.Controllers
         {
             string login = mappingFunctions.login;
             IFormFile file = mappingFunctions.file;
-            string mainpath = "C:\\Users\\Admin\\source\\repos\\MathPlot\\MathPlot\\mathplot.ui\\Charts";
+            mainpath = Configuration.GetSection("SaveImgPath").GetValue<string>("MainPath");
             if (!ModelState.IsValid)
             {
                     return BadRequest(ModelState);

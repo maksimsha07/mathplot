@@ -3,6 +3,7 @@ using MathPlot.Api.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,18 +17,21 @@ namespace MathPlot.Api.Controllers
     public class MappingGaussController : ControllerBase
     {
         ApplicationDbContext db;
-        public MappingGaussController(ApplicationDbContext context)
+        public IConfiguration Configuration { get; }
+        private string mainpath;
+
+        public MappingGaussController(ApplicationDbContext context, IConfiguration configuration)
         {
             db = context;
+            Configuration = configuration;
         }
-
         [HttpPost]
         public async Task<ActionResult<MappingGauss>> Post([FromForm] MappingFunctionsFiles mappingFunctions)
         {
             string login = mappingFunctions.login;
             IFormFile file = mappingFunctions.file;
             string mapping = "mappingGauss";
-            string mainpath = "C:\\Users\\Admin\\source\\repos\\MathPlot\\MathPlot\\mathplot.ui\\Charts";
+            mainpath = Configuration.GetSection("SaveImgPath").GetValue<string>("MainPath");
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

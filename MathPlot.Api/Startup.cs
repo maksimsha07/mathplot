@@ -53,11 +53,11 @@ namespace MathPlot.Api
                             ValidateIssuerSigningKey = true,
                        };
                    });
-            // получаем строку подключения из файла конфигурацsии
             services.AddCors(c =>
             {
                 c.AddPolicy("AllowOrigin",option =>option.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             });
+            // получаем строку подключения из файла конфигурацsии
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(connection));
