@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "9bda443b-3129-4a66-98cb-949681051a95": {
+      "ProjectGuid": "9bda443b-3129-4a66-98cb-949681051a95",
+      "DisplayName": "MathPlot.Api",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

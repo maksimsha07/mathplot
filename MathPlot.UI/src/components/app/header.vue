@@ -74,7 +74,7 @@
     <b-modal
         id ="registrationsModal"
         ref = "modal"
-        title="Sing Up"
+        title="Регистрация"
         hide-footer
         >
         <div class="container overflow-hidden">
@@ -82,32 +82,32 @@
             <form id="registrationForm" @submit.prevent = "registerClick">
                 <div class="form-group row ">
                     <div class="form-group col-md-6">
-                        <label for="registrationInputFirstName">FirstName</label>
-                        <input type="text" class="form-control" v-model="FirstName" id="registrationInputFirstName" placeholder="Enter FirstName">
+                        <label for="registrationInputFirstName">Фамилия</label>
+                        <input type="text" class="form-control" v-model="FirstName" id="registrationInputFirstName">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="registrationInputLastName">LastName</label>
-                        <input type="text" class="form-control" v-model="LastName" id="registrationInputLastName" placeholder="Enter LastName">
+                        <label for="registrationInputLastName">Имя</label>
+                        <input type="text" class="form-control" v-model="LastName" id="registrationInputLastName">
                     </div>
                 </div>
                 <div class="form-group" id="modalrowsize">
-                    <label for="registrationInputLogin">Login</label>
-                    <input type="Login" class="form-control" v-model="Login" id="registrationInputLogin" placeholder="Enter Login">
+                    <label for="registrationInputLogin">Логин</label>
+                    <input type="Login" class="form-control" v-model="Login" id="registrationInputLogin" >
                 </div>
                 <div class="form-group row" id="modalrowsize">
                     <div class="form-group col-md-6">
-                        <legend class="col-form-label col-sm-2 pt-0">Genres</legend>
+                        <legend class="col-form-label col-sm-2 pt-0">Пол</legend>
                         <div class="form-group row">
                             <div class="form-check col-md-6" style="margin-left:15px">
                                 <input class="form-check-input" type="radio" name="IsMale" id="registrationRadioMale" value="true"  v-model="Genre" checked>
                                 <label class="form-check-label" for="registrationRadioMale">
-                                    Male
+                                    Мужской
                                 </label>
                             </div>
                             <div class="form-check col-md-4">
                                 <input class="form-check-input" type="radio" name="IsMale" id="registrationRadioFemale" value="false"  v-model="Genre"  checked>
                                 <label class="form-check-label" for="">
-                                    Female
+                                    Женский
                                 </label>
                             </div>
                             <input type="file" @change="onFileChange"/>
@@ -116,28 +116,28 @@
                 </div>
                 <div class="form-group row" id="modalrowsize">
                     <div class="form-group col-md-6">
-                        <label for="registrationInputEmail">Email Address</label>
+                        <label for="registrationInputEmail">Почта</label>
                         <input type="Email" class="form-control" id="registrationInputEmail" v-model="Email"  placeholder="Enter email">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="registrationInputTelephone">Phone Number</label>
+                        <label for="registrationInputTelephone">Номер Телефона</label>
                         <input type="Phone" class="form-control" id="registrationInputTelephone"  v-model="Phone">
                     </div>
                 </div>
                 <div class="form-group row" id="modalrowsize">
                     <div class="form-group col-md-6">
-                        <label for="registrationInputPassword">Password</label>
-                        <input type="Password" class="form-control" id="registrationInputPassword" placeholder="Enter Password"  v-model="Password" >
+                        <label for="registrationInputPassword">Пароль</label>
+                        <input type="Password" class="form-control" id="registrationInputPassword"  v-model="Password" >
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="registrationInputPasswordReturn">Password</label>
-                        <input type="Password" class="form-control" id="registrationInputPasswordReturn" placeholder="Enter Password">
+                        <label for="registrationInputPasswordReturn">Повтор пароля</label>
+                        <input type="Password" class="form-control" id="registrationInputPasswordReturn"  v-model="CheckPassword">
                     </div>
                 </div>
             </form>
         </div>
             <div class="modal-footer">
-                <b-button type="submit" form="registrationForm" variant="secondary">Submit</b-button>
+                <b-button type="submit" form="registrationForm" variant="secondary">Зарегистрироваться</b-button>
             </div>
     </b-modal>
     <!--Modal Sing Up-->
@@ -145,24 +145,24 @@
      <b-modal
         id ="authModal"
         ref = "modal"
-        title="Sing in"
+        title="Войти"
         hide-footer
         >
          <div class="container overflow-hidden">
              <div id="errorsLog" class="alert alert-danger" style="display:none;"></div>
                 <form id="authForm">
                     <div class="form-group">
-                        <label for="authInputEmail">Login</label>
-                        <input type="Login" class="form-control" id="authInputEmail" placeholder="Enter Login" v-model="Login">
+                        <label for="authInputEmail">Логин</label>
+                        <input type="Login" class="form-control" id="authInputEmail" v-model="Login">
                     </div>
                     <div class="form-group" id="modalrowsize">
-                        <label for="authInputPassword">Password</label>
-                        <input type="Password" class="form-control" id="authInputPassword" placeholder="Enter Password" v-model="Password">
+                        <label for="authInputPassword">Пароль</label>
+                        <input type="Password" class="form-control" id="authInputPassword" v-model="Password">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <b-button type="button" form="authForm" variant="secondary" v-on:click="getTokenAsync">Submit</b-button>
+                <b-button type="button" form="authForm" variant="secondary" v-on:click="getTokenAsync">Войти</b-button>
             </div>
      </b-modal>
 </div>
@@ -184,6 +184,7 @@ export default{
             Email: null,
             Phone: null,
             Password: "",
+            CheckPassword: "",
             file: null,
             User: null,
             mainProps: {width: 20, height: 20},
@@ -223,73 +224,85 @@ export default{
             }
         },
         async registerClick(){
-           const response = await fetch("http://localhost:56063/api/user",
-           {
-               method: "POST",
-               headers: {"Accept": "application/json", "Content-Type": "application/json"},
-               body: JSON.stringify({
-                    Id :this.Id,
-                    FirstName : this.FirstName,
-                    LastName: this.LastName,
-                    Login: this.Login,
-                    Genre: this.Genre == "true" ? true : false,
-                    Email: this.Email,
-                    Phone: (this.Phone == null || this.Phone == "") ? null :Number(this.Phone),
-                    Password: this.Password,
-                    ImagePath: null
-               })
-           });
-           if(response.ok === true){
-               console.log("ok");
-                if(this.file != null){
-                    let formdata = new FormData()
-                    formdata.append('file',this.file)
-                    formdata.append('login',this.Login)
-                    console.log(formdata['file'],formdata['login'])
-                    const response = await fetch("http://localhost:56063/api/UserImage", {
-                        method: "PUT",
-                        body: formdata
-                    });
-                    if(response.status >=200 && response.status <= 299){
-                        this.User = await response.json()
-                        console.log(this.User)
-                    }
-                    else{
-                        console.log(response.status, response.statusText);
-                    }
+            if(this.Password == this.CheckPassword){           
+                const response = await fetch("http://localhost:56063/api/user",
+                {
+                    method: "POST",
+                    headers: {"Accept": "application/json", "Content-Type": "application/json"},
+                    body: JSON.stringify({
+                            Id :this.Id,
+                            FirstName : this.FirstName,
+                            LastName: this.LastName,
+                            Login: this.Login,
+                            Genre: this.Genre == "true" ? true : false,
+                            Email: this.Email,
+                            Phone: (this.Phone == null || this.Phone == "") ? null :Number(this.Phone),
+                            Password: this.Password,
+                            ImagePath: null
+                    })
+                });
+                if(response.ok === true){
+                        if(this.file != null){
+                            let formdata = new FormData()
+                            formdata.append('file',this.file)
+                            formdata.append('login',this.Login)
+                            console.log(formdata['file'],formdata['login'])
+                            const response = await fetch("http://localhost:56063/api/UserImage", {
+                                method: "PUT",
+                                body: formdata
+                            });
+                            if(response.status >=200 && response.status <= 299){
+                                this.User = await response.json()
+                                console.log(this.User)
+                                window.location.reload();
+                            }
+                            else{
+                                console.log(response.status, response.statusText);
+                            }
+                        }
+                        else{
+                            window.location.reload();
+                        }
                 }
-           }
-           else{
-              const errorData = await response.json();             
-              this.clearBox("errors");
-              if(errorData.errors){
-                  if(errorData.errors["Login"]){
-                      this.addError(errorData.errors["Login"],"errors");
-                  }
-                   if(errorData.errors["FirstName"]){
-                      this.addError(errorData.errors["FirstName"],"errors");
-                  }
-                   if(errorData.errors["LastName"]){
-                      this.addError(errorData.errors["LastName"],"errors");
-                  }
-                 if(errorData.errors["Password"]){
-                        this.addError(errorData.errors["Password"],"errors");
-                   }                  
-              }
-              if(errorData["Login"]){
-                 this.addError(errorData["Login"],"errors");
-              }
-              if(errorData["FirstName"]){
-                 this.addError(errorData["FirstName"],"errors");
-              }
-              if(errorData["LastName"]){
-                 this.addError(errorData["LastName"],"errors");
-              }
-              if(errorData["Password"]){
-                 this.addError(errorData["Password"],"errors");
-              }
-              document.getElementById("errors").style.display = "block";
-           }
+                else{
+                    const errorData = await response.json();             
+                    this.clearBox("errors");
+                    if(errorData.errors){
+                        if(errorData.errors["Login"]){
+                            this.addError(errorData.errors["Login"],"errors");
+                        }
+                        if(errorData.errors["FirstName"]){
+                            this.addError(errorData.errors["FirstName"],"errors");
+                        }
+                        if(errorData.errors["LastName"]){
+                            this.addError(errorData.errors["LastName"],"errors");
+                        }
+                        if(errorData.errors["Password"]){
+                                this.addError(errorData.errors["Password"],"errors");
+                        }                  
+                    }
+                    if(errorData["Login"]){
+                        this.addError(errorData["Login"],"errors");
+                    }
+                    if(errorData["FirstName"]){
+                        this.addError(errorData["FirstName"],"errors");
+                    }
+                    if(errorData["LastName"]){
+                        this.addError(errorData["LastName"],"errors");
+                    }
+                    if(errorData["Password"]){
+                        this.addError(errorData["Password"],"errors");
+                    }
+                    document.getElementById("errors").style.display = "block";
+                }
+            }
+            else{
+                this.clearBox("errors");
+                const p = document.createElement("p");
+                p.append("Пароли не совпадают");
+                document.getElementById("errors").append(p);
+                document.getElementById("errors").style.display = "block";
+            }
         },
         addError(errors,elementid) {
             errors.forEach(error => {

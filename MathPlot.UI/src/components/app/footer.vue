@@ -11,7 +11,7 @@
                     <a href="to"><p><img src="../../assets/mainlogo.png" alt="Func" id="logoFooter" align="middle"> MathPlot</p></a>
                     </router-link>
                     <div style="position: relative; top:-50px;">
-                      <p>+79094352590</p>
+                      <p>+79091352550</p>
                       <p>Info@mysite.com</p>
                     </div>
                 </b-col>
@@ -40,7 +40,7 @@
                   </div>
                 </b-col >
                 <b-col style="text-align: center">
-                  <p style="margin-top:36px">Follow Us On:</p>
+                  <p style="margin-top:36px">О нас:</p>
                   <b-icon icon="facebook" id="footerIcon"></b-icon>
                   <b-icon icon="instagram" id="footerIcon"></b-icon>
                   <b-icon icon="linkedin" id="footerIcon"></b-icon>
