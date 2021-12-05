@@ -207,6 +207,9 @@ export default{
         if(this.autorize){
             this.GetUsers()
         }
+        else{
+            this.$router.push({ name: 'home' });
+        }
     },
     methods:
     {
@@ -347,8 +350,9 @@ export default{
             sessionStorage.removeItem(tokenKey);
             sessionStorage.removeItem(lg);
             this.autorize = false;
-            this.$router.push({ name: 'home' });
             window.location.reload();
+            this.$router.push({ name: 'home' });
+            
         },
         onFileChange(e) {
             this.file = e.target.files[0];
