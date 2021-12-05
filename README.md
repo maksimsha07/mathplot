@@ -26,4 +26,10 @@
     "MainUserPath": "C:\\Users\\Admin\\source\\repos\\MathPlot\\MathPlot\\mathplot.ui\\src\\UserImages"
   },
 ```
+Так же нужно изменить строку подключения к БД на вашу.
+```sh
+"ConnectionStrings": {
+    "DefaultConnection": "Host=localhost;Port=5432;Database=mathplot;Username=postgres;Password=root"
+  },
+```
 Возможно, нужно будет поставить дамб БД. Его можно найти в файлах проекта.
