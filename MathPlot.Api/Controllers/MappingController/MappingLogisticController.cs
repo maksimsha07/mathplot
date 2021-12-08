@@ -10,27 +10,27 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MathPlot.Api.Controllers
+namespace MathPlot.Api.Controllers.MappingController
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MappingTwoController : ControllerBase
+    public class MappingLogisticController : ControllerBase
     {
         ApplicationDbContext db;
         public IConfiguration Configuration { get; }
         private string mainpath;
-        public MappingTwoController(ApplicationDbContext context, IConfiguration configuration)
+        public MappingLogisticController(ApplicationDbContext context, IConfiguration configuration)
         {
             db = context;
             Configuration = configuration;
         }
 
         [HttpPost]
-        public async Task<ActionResult<MappingTwo>> Post([FromForm] MappingFunctionsFiles mappingFunctions)
+        public async Task<ActionResult<MappingLogistic>> Post([FromForm] MappingFunctionsFiles mappingFunctions)
         {
             string login = mappingFunctions.login;
             IFormFile file = mappingFunctions.file;
-            string mapping = "mappingTwo";
+            string mapping = "mappingLogistic";
             mainpath = Configuration.GetSection("SaveImgPath").GetValue<string>("MainPath");
             if (!ModelState.IsValid)
             {
@@ -51,7 +51,7 @@ namespace MathPlot.Api.Controllers
                     Directory.CreateDirectory(mainpath + "\\" + mappingFunctions.login + "\\" + mapping);
                 }
                 User user = await db.Users.FirstOrDefaultAsync(x => x.Login == login);
-                var mp = await db.mappingTwos.Where(x => x.user == user).ToListAsync();
+                var mp = await db.mappingLogistics.Where(x => x.user == user).ToListAsync();
                 int count = mp.Count();
                 if (count > 10)
                 {
@@ -60,7 +60,7 @@ namespace MathPlot.Api.Controllers
                     {
                         System.IO.File.Delete((deletepath));
                     }
-                    db.mappingTwos.Remove(mp[0]);
+                    db.mappingLogistics.Remove(mp[0]);
                     await db.SaveChangesAsync();
                 }
                 Random rnd = new Random();
@@ -69,7 +69,7 @@ namespace MathPlot.Api.Controllers
                 {
                     await file.CopyToAsync(fileStream);
                 }
-                MappingTwo mappingTwo = new MappingTwo
+                MappingLogistic mappingLogistic = new MappingLogistic
                 {
                     r = mappingFunctions.r,
                     bifur = mappingFunctions.bifur,
@@ -77,7 +77,7 @@ namespace MathPlot.Api.Controllers
                     path = value.ToString() + file.FileName,
                     user = await db.Users.FirstOrDefaultAsync(x => x.Login == user.Login)
                 };
-                db.mappingTwos.Add(mappingTwo);
+                db.mappingLogistics.Add(mappingLogistic);
                 await db.SaveChangesAsync();
                 return Ok();
             }

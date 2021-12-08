@@ -56,12 +56,6 @@ export default new Router({
       component: ()=> import('../views/Theory/OneDimensionalMappings.vue')
     },
     {
-      path: '/TwoDimensionalMappings/0',
-      name: 'TwoDimensionalMappings',
-      meta: {layout: 'Main'},
-      component: ()=> import('../views/Theory/TwoDimensionalMappings.vue')
-    },
-    {
       path: '/OneDimensionalMappings/1',
       name: 'TheoryLogistic',
       meta: {layout: 'Main'},

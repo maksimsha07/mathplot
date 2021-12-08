@@ -198,8 +198,7 @@ export default{
                 {title:'Отображение планка',url:'/MappPlank'},
             ],
             linkstheory: [
-                {title:'Одномерные точечные отображения', url: '/OneDimensionalMappings/0'},
-                {title:'Двумерные точечные одображения', url: '/TwoDimensionalMappings/0'}
+                {title:'Одномерные точечные отображения', url: '/OneDimensionalMappings/0'}
             ]
         }
     },

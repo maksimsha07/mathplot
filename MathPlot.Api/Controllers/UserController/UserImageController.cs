@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using MathPlot.Api.Entity;
 using Microsoft.Extensions.Configuration;
 
-namespace MathPlot.Api.Controllers
+namespace MathPlot.Api.Controllers.UserController
 {
     [Route("api/[controller]")]
     [ApiController]
