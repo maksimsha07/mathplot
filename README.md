@@ -32,4 +32,4 @@
     "DefaultConnection": "Host=localhost;Port=5432;Database=mathplot;Username=postgres;Password=root"
   },
 ```
-Возможно, нужно будет поставить дамб БД. Его можно найти в файлах проекта.
+Возможно, нужно будет поставить дамп БД. Его можно найти в файлах проекта.
